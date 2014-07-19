@@ -20,6 +20,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        $("#homeScreen").show();
     },
     // Bind Event Listeners
     //
@@ -44,6 +45,23 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+    },
+    
+    //Load the home page
+    loadHome : function () {
+        $("#btnHomeRecipes").slideDown(1500);
+        $("#btnHomeCreateSmootie").slideDown(1500);
+        
+        $("#btnHomeRecipes").click(function () {
+            buttonEvents.switchScreen("homeScreen", "smoothieRecipeScreen");
+        });
+    }
+};
+
+var buttonEvents = {
+    switchScreen: function (divIDToHide, divIDToShow, action) {
+        $("#"+divIDToHide).hide(700);
+        $("#"+divIDToShow).show(700);
+        action();
     }
 };
