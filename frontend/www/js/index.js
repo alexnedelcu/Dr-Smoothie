@@ -49,8 +49,8 @@ var app = {
     
     //Load the home page
     loadHome : function () {
-        $("#btnHomeRecipes").slideDown(1500);
-        $("#btnHomeCreateSmootie").slideDown(1500);
+        $("#btnHomeRecipes").fadeIn(1000);
+        $("#btnHomeCreateSmootie").fadeIn(1000);
         
         $("#btnHomeRecipes").click(function () {
             buttonEvents.switchScreen("homeScreen", "smoothieRecipeScreen");
@@ -60,8 +60,21 @@ var app = {
 
 var buttonEvents = {
     switchScreen: function (divIDToHide, divIDToShow, action) {
-        $("#"+divIDToHide).hide(700);
-        $("#"+divIDToShow).show(700);
+        
+        // change the screens
+        $("#"+divIDToHide).fadeOut(1000);
+        $("#"+divIDToShow).fadeIn(1000);
+        
+        // implementing the "Go back" button
+        document.addEventListener("backbutton", function () {
+            
+            // change the screens back
+            $("#"+divIDToHide).fadeIn(1000);
+            $("#"+divIDToShow).fadeOut(1000);
+            
+        }, false);
+        
+        // do something that the user wants
         action();
     }
 };

@@ -145,3 +145,11 @@ thead.dark-background {
 table.smoothieList {
     margin-top:0.5in;
 }
+
+ul.nav-tabs-dark-background {
+    margin-top: 0.1in;
+}
+ul.nav-tabs-dark-background li {
+    
+    color: #ffffff;
+}
