@@ -20,7 +20,27 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        $("#homeScreen").show();
+        this.loadPages();
+    },
+    
+    loadPages: function () {
+            var screens = ["homeScreen.html", "smoothieListScreen.html"];
+            var i;
+            for (i=0; i<screens.length; i++) {
+                $.ajax({
+                    url: screens[i],
+                    data: null,
+                    success: function (data) {
+                        $("#body").prepend(data);
+
+                        // show the home screen when all the pages were loaded
+                        if (i == screens.length)
+                            app.loadHome();
+                    },
+                    dataType: 'html'
+                });
+                
+            }
     },
     // Bind Event Listeners
     //
@@ -34,21 +54,13 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
+//        app.receivedEvent('deviceready');
+//        app.loadHome();
     },
     
     //Load the home page
     loadHome : function () {
+        $("#homeScreen").show();
         $("#btnHomeRecipes").fadeIn(1000);
         $("#btnHomeCreateSmootie").fadeIn(1000);
         
