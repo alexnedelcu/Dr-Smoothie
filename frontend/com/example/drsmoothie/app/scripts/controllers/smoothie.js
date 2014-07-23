@@ -8,7 +8,7 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('AboutCtrl', function ($scope) {
+  .controller('SmoothieListCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
