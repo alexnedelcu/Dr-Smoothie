@@ -1,0 +1,44 @@
+<div class="container-fluid screen" id="smoothieRecipeScreen">
+    <div class="background background-dark">
+        <ul class="nav nav-tabs nav-tabs-dark-background" role="tablist" id="tabsCreateView">
+            <li class="active" id="tabIngredients"><a href="#ingredients" role="tab" data-toggle="tab">Ingredients</a></li>
+            <li id="tabNutrients"><a href="#nutrients" role="tab" data-toggle="tab">Nutrients</a></li>
+        </ul>
+                
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="ingredients">
+            <table class="table smoothieList" id="tableIngredients">
+                <tr><td>Fruits</td><td>Vegetables</td></tr>
+                <tr><td>Nuts</td><td>Others</td></tr>
+            </table>
+          </div>
+            <div class="tab-pane fade" id="nutrients">
+                <table class="table smoothieList" id="tableNutrients">
+                    <tr><td>Vitamins</td><td>Minerals</td></tr>
+                    <tr><td>Proteins</td><td>Carbs</td></tr>
+                    <tr><td>Fats</td><td></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$('#tabsCreateView li a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+});
+//    var showNutrientsCreationForm = function() {
+//        $("#tableIngredients").hide();
+//        $("#tableNutrients").show();
+//        $("#tabIngredients").removeClass("active");
+//        $("#tabNutrients").addClass("active");
+//    }
+//    var showIngredientsCreationForm = function() {
+//        $("#tableIngredients").show();
+//        $("#tableNutrients").hide();
+//        $("#tabIngredients").addClass("active");
+//        $("#tabNutrients").removeClass("active");
+//    }
+</script>

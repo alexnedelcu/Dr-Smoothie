@@ -27,6 +27,10 @@ angular
         templateUrl: 'views/smoothieList.html',
         controller: 'SmoothieListCtrl'
       })
+      .when('/create', {
+        templateUrl: 'views/createSmoothie.html',
+        controller: 'CreateSmoothieCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
