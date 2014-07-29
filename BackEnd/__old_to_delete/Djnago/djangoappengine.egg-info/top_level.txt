@@ -1,0 +1,15 @@
+main
+djangotoolbox
+lib
+appstats
+db
+autoload
+django
+deferred
+management
+myapp
+mapreduce
+x
+dbindexer
+djangoappengine
+testapp

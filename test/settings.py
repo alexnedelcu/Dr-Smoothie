@@ -1,0 +1,1 @@
+from drsmoothie.settings import *
