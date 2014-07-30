@@ -10,15 +10,18 @@ def ingredient(request):
     
     return HttpResponse(serializers.serialize("json", ingredients))
 
-def nutrients_of_an_ingredient(request):
+def ingredients_with_a_nutrient(request):
+    
+    # look for the input nutrient, specified in the URL
+    # e.g. http://localhost:8000/nutr_of_ingr?id=1
     nutrient = Nutrient.objects.get(pk=request.GET['id'])
     
-    related_ingredients = NutrIngrMap.objects.filter(id_nutrient__exact = nutrient);
+    # get all the corresponding ingredients
+    related_ingredients = NutrIngrMap.objects.filter(nutrient__exact = nutrient);
     
+    # build a list of the corresponding ingredient (useful so it can be serialized in json)
     ingredients = list()
     for ingr in related_ingredients:
-        ingredients.append(ingr.id_ingredient)
-    #ingredients = Ingredient.objects.filter(id_ingredient__in = related_ingredients)
+        ingredients.append(ingr.ingredient)
     
     return HttpResponse(serializers.serialize("json", ingredients))
-#    return HttpResponse(json.dumps(related_ingredients))

@@ -50,15 +50,13 @@ class RecipeUserRecommendationsMap(models.Model):
     user = models.ForeignKey(User)
     recipe = models.ForeignKey(Recipe)
 
-    # TODO: implement a create method like in the NutrIngrMap that only
-    # creates a new entry if the requested entry does not exist
-    
-    
-    
-#test - added to the nutrient and ingredient models
-
-#Orange -   1
-#Lemon -    2
-#Apple -    3
-
-#vitamin C    1
+    # TODO: test if this works properly
+    def create(self, recipe, user):
+        # test if the entry already exists
+        q = RecipeUserRecommendationsMap.objects.filter(Q(user__exact=user) & Q(recipe__exact=recipe))
+        
+        if q.count() > 0:
+            r = RecipeUserRecommendationsMap(user=user, recipe=recipe)
+        else:
+            r = q  # there should only be one entry
+        return r
