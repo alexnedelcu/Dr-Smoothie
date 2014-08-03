@@ -5,7 +5,7 @@ frontend instruction.
 
 git is ignoring all the node modules and platform stuff and www as well.
 
-I have not tested a fresh pull of this project. But here is what you probably need to do.
+Here is what you need to do to get working...
 
 
 After pulling the project go to frontend\com\example\drsmoothie
