@@ -12,8 +12,8 @@ global #do npm install -g grunt-cli
 After pulling the project go to frontend\com\example\drsmoothie
 	
 	
-	# do "bower install"
 	# do "npm install" (it will install all the stuff needed)
+	# do "bower install"
 	
 	# work in the app folder. thats where html files and js files are at.
 	# for cordova build 
