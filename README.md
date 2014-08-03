@@ -7,8 +7,7 @@ git is ignoring all the node modules and platform stuff and www as well.
 
 I have not tested a fresh pull of this project. But here is what you probably need to do.
 
-global 
-#do npm install -g grunt-cli
+global #do npm install -g grunt-cli
 
 After pulling the project go to frontend\com\example\drsmoothie
 	# do "npm install" (it will install all the stuff needed)
