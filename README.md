@@ -7,13 +7,13 @@ git is ignoring all the node modules and platform stuff and www as well.
 
 I have not tested a fresh pull of this project. But here is what you probably need to do.
 
-global #do npm install -g grunt-cli
 
 After pulling the project go to frontend\com\example\drsmoothie
 	
-	
+	#do "npm install -g grunt-cli"
 	# do "npm install" (it will install all the stuff needed)
 	# do "bower install"
+	# do "grunt serve" loads the localhost
 	
 	# work in the app folder. thats where html files and js files are at.
 	# for cordova build 
