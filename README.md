@@ -10,10 +10,11 @@ I have not tested a fresh pull of this project. But here is what you probably ne
 global #do npm install -g grunt-cli
 
 After pulling the project go to frontend\com\example\drsmoothie
-	# do "npm install" (it will install all the stuff needed)
+	
 	
 	# do "bower install"
-
+	# do "npm install" (it will install all the stuff needed)
+	
 	# work in the app folder. thats where html files and js files are at.
 	# for cordova build 
 		-> do "cordova platform add android"
