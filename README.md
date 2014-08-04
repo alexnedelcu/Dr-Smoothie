@@ -11,6 +11,7 @@ Here is what you need to do to get working...
 After pulling the project go to frontend\com\example\drsmoothie
 	
 	#do "npm install -g grunt-cli"
+	#do "npm install -g bower"
 	# do "npm install" (it will install all the stuff needed)
 	# do "bower install"
 	# do "grunt serve" loads the localhost
