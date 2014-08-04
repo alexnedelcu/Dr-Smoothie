@@ -10,27 +10,9 @@
                     <thead class="dark-background">
                         <tr><th>Smoothie</th><th>Recommendations</th></tr>
                     </thead>
-                    <tbody class="dark-background">
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
-                        <tr><td>Banana delight</td><td>10</td></tr>
-                        <tr><td>Strawberry delight</td><td>12</td></tr>
+                    <tbody ng-repeat="smoothie in smoothielist" class="dark-background">
+                        <tr><td>{{smoothie.name}}</td><td>{{smoothie.recom}}</td></tr>
+                        
                     </tbody>
                 </table>
             </div>

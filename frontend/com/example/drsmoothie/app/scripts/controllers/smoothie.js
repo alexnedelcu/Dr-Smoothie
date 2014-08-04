@@ -8,10 +8,13 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('SmoothieListCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
+  .controller('SmoothieListCtrl', function ($scope, $http) {
+    $scope.smoothielist = [
+    	{name :"Banana delight", recom : 10},
+    	{name : "Strawberry delight", recom: 12},
+		{name :"Banana delight", recom : 10},
+    	{name : "Strawberry delight", recom: 12},
+		{name :"Banana delight", recom : 10},
+    	{name : "Strawberry delight", recom: 12}
     ];
   });
