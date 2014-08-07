@@ -77,3 +77,19 @@ body {
     border-bottom: 0;
   }
 }
+
+#blender
+{
+  max-height: 45px;
+  min-width: 45px;
+}
+
+#blender-btn
+{
+  max-width: 130px;
+  width: 130px;
+  float: right;
+  margin-right: 10px;
+  border: 2px solid #1e90ff;
+  cursor: pointer;
+}

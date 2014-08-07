@@ -1,24 +1,41 @@
 <div class="container-fluid screen" id="smoothieRecipeScreen">
     <div class="background background-dark">
-        <ul class="nav nav-tabs nav-tabs-dark-background" role="tablist" id="tabsCreateView">
-            <li class="active" id="tabIngredients"><a href="#ingredients" role="tab" data-toggle="tab">Ingredients</a></li>
-            <li id="tabNutrients"><a href="#nutrients" role="tab" data-toggle="tab">Nutrients</a></li>
-        </ul>
-                
+        <div class="text-center">
+            <div class="btn-group" id="criteria-type" data-toggle="buttons">
+              <label class="btn btn-primary active">
+                <input type="checkbox" checked>Ingredients
+              </label>
+              <label class="btn btn-primary">
+                <input type="checkbox"> Nutrients
+              </label>
+            </div>
+        </div>
+        <div id="blender-btn" class="text-right">
+            Edit Blender
+            <img id="blender" src="..\images\blender.jpg" 
+       class="img-rounded">
+        </div>
         <!-- Tab panes -->
+        <ul class="nav nav-tabs nav-tabs-dark-background" role="tablist" id="tabsCreateView">
+            <li class="active" id="tabIngredients">
+                <a href="#ingredients" role="tab" data-toggle="tab">Vegetables</a>
+            </li>
+            <li id="tabNutrients">
+                <a href="#nutrients" role="tab" data-toggle="tab">Fruits</a>
+            </li>
+        </ul>
+
         <div class="tab-content">
-          <div class="tab-pane fade in active" id="ingredients">
-            <table class="table smoothieList" id="tableIngredients">
-                <tr><td>Fruits</td><td>Vegetables</td></tr>
-                <tr><td>Nuts</td><td>Others</td></tr>
-            </table>
-          </div>
-            <div class="tab-pane fade" id="nutrients">
-                <table class="table smoothieList" id="tableNutrients">
-                    <tr><td>Vitamins</td><td>Minerals</td></tr>
-                    <tr><td>Proteins</td><td>Carbs</td></tr>
-                    <tr><td>Fats</td><td></td></tr>
+            <div class="tab-pane fade in active" id="ingredients">
+                <table class="table smoothieList" id="tableIngredients">
+                    <tr>
+                        <td>Fruits</td>
+                        <td>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </td>
+                    </tr>
                 </table>
+
             </div>
         </div>
     </div>
@@ -26,8 +43,8 @@
 
 <script>
 $('#tabsCreateView li a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
+    e.preventDefault();
+    $(this).tab('show');
 });
 //    var showNutrientsCreationForm = function() {
 //        $("#tableIngredients").hide();

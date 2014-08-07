@@ -1,0 +1,32 @@
+<div class="container-fluid screen" id="smoothieRecipeScreen">
+    <div class="background background-dark">
+        <ul class="nav nav-tabs" role="tablist" id="recipe-nav-tab">
+          <li class="active"><a href="#my-recipes" role="tab" data-toggle="tab">My Recipes</a></li>
+          <li><a href="#top-recipes" role="tab" data-toggle="tab">Top Recipes</a></li>
+          <li><a href="#recommended-recipes" role="tab" data-toggle="tab">Recommendations</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="my-recipes">
+            my recipes
+          </div>
+          <div class="tab-pane" id="top-recipes">
+            top recipes
+          </div>
+          <div class="tab-pane" id="recommended-recipes">
+            recommended recipes
+          </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(function () {
+    
+    $('#recipe-nav-tab a').click(function(e) {
+        $(this).tab('show');
+        e.preventDefault();
+    });
+
+  });
+</script>

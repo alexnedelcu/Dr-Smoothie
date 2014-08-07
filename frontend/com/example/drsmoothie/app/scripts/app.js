@@ -24,14 +24,20 @@ angular
         controller: 'MainCtrl'
       })
       .when('/smoothie', {
-        templateUrl: 'views/smoothieList.html',
+        templateUrl: 'views/recipes.html',
         controller: 'SmoothieListCtrl'
       })
       .when('/create', {
         templateUrl: 'views/createSmoothie.html',
         controller: 'CreateSmoothieCtrl'
       })
+      .when('/search', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchListCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
       });
   });
+
