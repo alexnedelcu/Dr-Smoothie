@@ -1,9 +1,24 @@
 <div class="container-fluid screen" id="smoothieRecipeScreen">
     <div class="background background-dark">
-        <ul class="nav nav-tabs" role="tablist" id="recipe-nav-tab">
-          <li class="active"><a href="#my-recipes" role="tab" data-toggle="tab">My Recipes</a></li>
-          <li><a href="#top-recipes" role="tab" data-toggle="tab">Top Recipes</a></li>
-          <li><a href="#recommended-recipes" role="tab" data-toggle="tab">Recommendations</a></li>
+        
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand handwriting" href="#">Dr. Smoothie</a>
+    </div>
+            </div>
+        </nav>
+        
+        <ul class="nav nav-tabs nav-justified nav-drsmoothie-bg" role="tablist" id="recipe-nav-tab">
+          <li class="active"><a href="#my-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> My Recipes</a></li>
+          <li><a href="#top-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-star"></span> Top Recipes</a></li>
+          <li><a href="#recommended-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-heart"></span> My Favorites</a></li>
         </ul>
 
         <div class="tab-content">
@@ -11,10 +26,10 @@
             my recipes
           </div>
           <div class="tab-pane" id="top-recipes">
-            top recipes
+            Top Recipes
           </div>
-          <div class="tab-pane" id="recommended-recipes">
-            recommended recipes
+          <div class="tab-pane" id="recommended-recipes"> 
+            My Favorites
           </div>
         </div>
     </div>

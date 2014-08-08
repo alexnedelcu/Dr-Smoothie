@@ -93,6 +93,9 @@ div.background-light {
     color: white;
     font-weight: bold
 }
+.handwriting {
+    font-family: 'Indie Flower', cursive;
+}
 
 h1 {
     font-size:24px;
@@ -158,6 +161,22 @@ ul.nav-tabs-dark-background {
     margin-top: 0.1in;
 }
 ul.nav-tabs-dark-background li {
-    
     color: #ffffff;
+}
+
+
+@media (max-width: 768px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a  {
+    border-bottom: 1px solid #ddd !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+ul.nav-drsmoothie-bg {
+    background: yellow;
 }
