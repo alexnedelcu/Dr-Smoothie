@@ -78,18 +78,31 @@ body {
   }
 }
 
-#blender
+
+.create-tab
 {
-  max-height: 45px;
-  min-width: 45px;
+  border: 1px solid white;
+  border-radius: 4px;
+  color: black;
+  margin-right: 0px;
+}
+
+.create-tab-link
+{
+  margin-right: 0px !important;
+}
+
+ #blender
+{
+  max-height: 50px;
+  min-width: 50px;
 }
 
 #blender-btn
 {
-  max-width: 130px;
-  width: 130px;
-  float: right;
-  margin-right: 10px;
-  border: 2px solid #1e90ff;
+  max-width: 140px;
+  width: 140px;
+  border-radius: 4px;
+  background-color: #1e90ff;
   cursor: pointer;
 }
