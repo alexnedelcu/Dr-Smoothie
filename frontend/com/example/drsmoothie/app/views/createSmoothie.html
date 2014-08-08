@@ -3,40 +3,103 @@
         <div class="text-center">
             <div class="btn-group" id="criteria-type" data-toggle="buttons">
               <label class="btn btn-primary active">
-                <input type="checkbox" checked>Ingredients
+                <input type="radio" checked><h4>Ingredients</h4>
               </label>
               <label class="btn btn-primary">
-                <input type="checkbox"> Nutrients
+                <input type="radio"><h4>Nutrients</h4>
               </label>
             </div>
         </div>
-        <div id="blender-btn" class="text-right">
-            Edit Blender
-            <img id="blender" src="..\images\blender.jpg" 
-       class="img-rounded">
-        </div>
         <!-- Tab panes -->
         <ul class="nav nav-tabs nav-tabs-dark-background" role="tablist" id="tabsCreateView">
-            <li class="active" id="tabIngredients">
-                <a href="#ingredients" role="tab" data-toggle="tab">Vegetables</a>
+            <li class="active create-tab">
+                <a class="create-tab-link" href="#vegetables" role="tab" data-toggle="tab"><h6>Vegetables</h6></a>
             </li>
-            <li id="tabNutrients">
-                <a href="#nutrients" role="tab" data-toggle="tab">Fruits</a>
+            <li class="create-tab">
+                <a class="create-tab-link" href="#fruits" role="tab" data-toggle="tab"><h6>Fruits</h6></a>
+            </li>
+            <li class="create-tab">
+                <a class="create-tab-link" href="#nuts" role="tab" data-toggle="tab"><h6>Nuts</h6></a>
+            </li>
+            <li class="create-tab">
+                <a class="create-tab-link" href="#other" role="tab" data-toggle="tab"><h6>Other</h6></a>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="ingredients">
-                <table class="table smoothieList" id="tableIngredients">
+            <div class="tab-pane fade in active" id="vegetables">
+                <table class="table smoothieList">
                     <tr>
-                        <td>Fruits</td>
-                        <td>
-                            <span class="glyphicon glyphicon-plus"></span>
+                        <td>Carrots</td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                0
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="quantity">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+                              </ul>
+                            </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Brocoli</td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">0
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="quantity">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+                              </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Spinach</td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">0
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="quantity">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+                              </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kale</td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">0
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="quantity">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+                              </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
                 </table>
-
             </div>
+        </div>
+        <div class="btnHomePage" id="btnHomeCreateSmootie">
+            <a ng-href="" type="button" class="btn btn-primary btn-lg btn-block">Create Smoothie</a>
         </div>
     </div>
 </div>
