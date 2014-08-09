@@ -14,3 +14,4 @@ www
 !www/config.xml
 !www/res
 .idea/
+!www/res
