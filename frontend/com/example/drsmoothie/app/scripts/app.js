@@ -23,9 +23,13 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/smoothie', {
+      .when('/smoothieListPersonal', {
         templateUrl: 'views/recipes.html',
-        controller: 'SmoothieListCtrl'
+        controller: 'MySmoothieListCtrl'
+      })
+      .when('/smoothieDetail', {
+        templateUrl: 'views/smoothieDetail.html',
+        controller: 'SmoothieDetailCtrl'
       })
       .when('/create', {
         templateUrl: 'views/createSmoothie.html',

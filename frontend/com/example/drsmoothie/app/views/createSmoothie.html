@@ -1,5 +1,10 @@
 <div class="container-fluid screen" id="smoothieRecipeScreen">
     <div class="background background-dark">
+        
+        <div ng-controller="HeaderCtrl">
+            <div ng-include="header.url"></div>
+        </div>
+        
         <div class="text-center">
             <div class="btn-group" id="criteria-type" data-toggle="buttons">
               <label class="btn btn-primary active">
@@ -9,21 +14,13 @@
                 <input type="radio"><h4>Nutrients</h4>
               </label>
             </div>
-        </div>
+        </div><br/>
         <!-- Tab panes -->
-        <ul class="nav nav-tabs nav-tabs-dark-background" role="tablist" id="tabsCreateView">
-            <li class="active create-tab">
-                <a class="create-tab-link" href="#vegetables" role="tab" data-toggle="tab"><h6>Vegetables</h6></a>
-            </li>
-            <li class="create-tab">
-                <a class="create-tab-link" href="#fruits" role="tab" data-toggle="tab"><h6>Fruits</h6></a>
-            </li>
-            <li class="create-tab">
-                <a class="create-tab-link" href="#nuts" role="tab" data-toggle="tab"><h6>Nuts</h6></a>
-            </li>
-            <li class="create-tab">
-                <a class="create-tab-link" href="#other" role="tab" data-toggle="tab"><h6>Other</h6></a>
-            </li>
+        <ul class="nav nav-tabs nav-justified nav-drsmoothie-bg" role="tablist" id="tabsCreateView">
+            <li class="active"><a href="#vegetables" role="tab" data-toggle="tab">Vegetables</a></li>
+            <li><a href="#fruits" role="tab" data-toggle="tab">Fruits</a></li>
+            <li><a href="#nuts" role="tab" data-toggle="tab">Nuts</a></li>
+            <li><a href="#other" role="tab" data-toggle="tab">Other</a></li>
         </ul>
 
         <div class="tab-content">

@@ -178,5 +178,8 @@ ul.nav-tabs-dark-background li {
 }
 
 ul.nav-drsmoothie-bg {
-    background: yellow;
+    background-image: url("../images/background_tab_inactive.png");
+    background-repeat: repeat-x;
+    background-size: contain
+
 }

@@ -8,3 +8,9 @@ platforms/**/
 www
 !www/config.xml
 !www/res
+
+platforms/**/
+www
+!www/config.xml
+!www/res
+.idea/
