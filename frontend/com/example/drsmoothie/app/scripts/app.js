@@ -39,6 +39,18 @@ angular
         templateUrl: 'views/search.html',
         controller: 'SearchListCtrl'
       })
+      .when('/searchByIngredient', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchListCtrl'
+      })
+      .when('/searchByName', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchListCtrl'
+      })
+      .when('/searchByNutrient', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchListCtrl'
+      })
       .otherwise({
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
