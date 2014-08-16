@@ -22,6 +22,11 @@ After pulling the project go to frontend\com\example\drsmoothie
 		-> "grunt phonegap:check" 
 		-> "grunt phonegap:build"
 		-> "grunt phonegap:emulate"
+		
+	#to debug on android
+		-> "grunt phonegap:build"
+		-> "phonegap remote login --username you@gmail.com --password YourPassword" (you need to create account first)
+		-> "grunt phonegap:send" (will send it to the website and download apk from there)
 	After doing a build, you will see www folder. You can open it to test in browser.
 	But since we are using angular and grunt, you can just do "grunt serve" to load in localhost.
 	
