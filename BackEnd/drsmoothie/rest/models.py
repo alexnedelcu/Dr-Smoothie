@@ -1,15 +1,16 @@
 from django.db import models
+from django.db.models import Q
 
 # Nutrient model
 class Nutrient(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     unit = models.CharField(max_length=32)
 
 # Ingredient Model
 class Ingredient(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=100)
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True)
     unit = models.CharField(max_length=32)
 
 # User model
@@ -20,11 +21,20 @@ class User(models.Model):
     
 # Recipe model
 class Recipe(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     user = models.ForeignKey(User)
     timeAdded = models.DateTimeField(auto_now_add=True)
     
+    @staticmethod
+    def create(name, user):
+        # test if the entry already exists
+        try:
+            r = Recipe.objects.get(name__exact=name)
+        except:
+            r = Recipe(name=name,user=user)
+            r.save()
+        return r
 
 # Relationship Mappings
 # this table creates the many to many relationship between Ingredient and Nutrient
@@ -52,14 +62,16 @@ class RecipeIngrMap(models.Model):
     ingredient = models.ForeignKey(Ingredient)
     quantity = models.FloatField()
 
-    def create(self, recipe, ingredient):
+    @staticmethod
+    def create(recipe, ingredient, quantity):
         # test if the entry already exists
         q = RecipeIngrMap.objects.filter(Q(recipe__exact=recipe) & Q(ingredient__exact=ingredient))
         
         # if RecipeIngrMap doesn't exist, create one
         # else return the existing mapping
         if q.count() is 0:
-            r = RecipeIngrMap(recipe=recipe, ingredient=ingredient)
+            r = RecipeIngrMap(recipe=recipe,ingredient=ingredient,quantity=quantity)
+            r.save()
         else:
             r = q  # there should only be one entry
         # returns the RecipeIngrMap

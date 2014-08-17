@@ -6,9 +6,16 @@ from django.utils import simplejson
 #from django.views.decorators.csrf import csrf_protect
 #from django.core.context_processors import csrf
 import json
+import sys
 # Create your views here.
 
 # GET Requests
+def GetIngredient(request):
+    retrievedIngredient = Ingredient.objects.get(pk=request.GET['id'])
+    
+    #Ingredient.objects.get(pk=request.GET['id'])
+    return HttpResponse(serializers.serialize("json", [retrievedIngredient]))
+
 def Ingredients(request):
     ingredients = Ingredient.objects.all()
     return HttpResponse(serializers.serialize("json", ingredients))
@@ -71,32 +78,30 @@ def TopRecipes(request):
     list.sort(rlist, key= lambda tup: tup[1])
     return HttpResponse(serializers.serialize("json", rlist[start:end]))
 
-# Get/PUT/UPDATE
+def Search(request):
+
+    return HttpResponse('')
+
+# POST/PUT/UPDATE
 def AddRecipe(request):
     data = json.loads(request.body)
-    
-    try:
-        recipename = data["recipe"]
-        ingredients = data["ingredients"]
-        userkey = data["userkey"]
-        userfound = User.objects.get(key=userkey)
-        addedrecipe = Recipe(name=recipename, user=userfound)
-        recipe.save()
 
-        for ingr in ingredients:
-            quantity = ingr["quantity"]
-            ingrid = ingr["ingr_id"]
-            ingrRetrieved = Ingredient.objects().get(id=ingrid)
-            rim = RecipeIngrMap(recipe=addedrecipe,
-                            ingredient=ingrRetrieved,
-                            quantity=quantity)
-            rim.save()
+    # retrieve needed data from data
+    recipename = str(data["name"])
+    ingredients = data["ingredients"]
+    userkey = str(data["userkey"])
 
-        jsonString = "Recipe has been added"
-    except:
-        jsonString = "Recipe was not added"
+    # userfound should have a try statement
+    userfound = User.objects.get(key=userkey)
+    addedrecipe = Recipe.create(recipename, userfound)
+
+    for ingr in ingredients:
+        quantity = float(ingr["quantity"])
+        ingrid = str(ingr["ingr_id"])
+        ingrRetrieved = Ingredient.objects.get(pk=ingrid)
+        rim = RecipeIngrMap.create(addedrecipe,ingrRetrieved,quantity)
     
-    return HttpResponse(jsonString)
+    return HttpResponse('')
 
 def AddUser(request):
     data = json.loads(request.body)
@@ -109,3 +114,29 @@ def AddUser(request):
 
     return HttpResponse(responseMessage)
 
+def RecommendRecipe(request):
+    try:
+        recipeRecommend = Recipe.objects.get(id=request.GET['recipeid'])
+        userRecommend = Recipe.objects.get(userkey=request.GET['userkey'])
+
+        createRecommendation = RecipeUserRecommendationsMap(recipe=recipeRecommend, user=userRecommend)
+        createRecommendation.save()
+        responseMessage = "Recommendation added."
+    except:
+        responseMessage = "Recommendation was not added."
+    
+    return HttpResponse(responseMessage)
+
+# Delete Requests
+def RemoveRecipe(request):
+    try:
+        deleteRecipe = Recipe.objects.get(pk=request.GET["id"])
+        responseMessage = Recipe.name + " was deleted."
+        # deleting the maps the recipe was associated with
+        RecipeIngrMap.objects().filter(recipe__exact=deleteRecipe).delete()
+        RecipeUserRecommendationsMap.objects().filter(recipe__exact=deleteRecipe).delete()
+        deleteRecipe.delete()
+    except:
+        responseMessage = "Recipe was not deleted."
+
+    return HttpResponse(responseMessage)
