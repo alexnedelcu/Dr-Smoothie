@@ -6,8 +6,18 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
-     url(r'^$', 'drsmoothie.rest.views.ingredient', name='ingredient'),
-     url(r'^ingredients_with_a_nutrient$', 'drsmoothie.rest.views.ingredients_with_a_nutrient', name='ingredients_with_a_nutrient'),
+    url(r'^$', 'drsmoothie.rest.views.Ingredients', name='Ingredients'),
+    # GET
+    url(r'^IngredientsByNutrient$', 'drsmoothie.rest.views.IngredientsByNutrient', name='GetIngredientsByNutrient'),
+    url(r'^Nutrients$', 'drsmoothie.rest.views.Nutrients', name='Nutrients'),
+    url(r'^Ingredients$', 'drsmoothie.rest.views.Ingredients', name='Ingredients'),
+    url(r'^RecipesByUser', 'drsmoothie.rest.views.RecipesByUser', name='RecipesByUser'),
+    url(r'^FavoriteRecipes', 'drsmoothie.rest.views.FavoriteRecipes', name='FavoriteRecipes'),
+    url(r'^TopRecipes', 'drsmoothie.rest.views.TopRecipes', name='TopRecipes'),
+    # POST
+    url(r'^AddRecipe', 'drsmoothie.rest.views.AddRecipe', name='AddRecipe'),
+    url(r'^AddUser', 'drsmoothie.rest.views.AddUser', name='AddUser'),
+    
     # url(r'^drsmoothie/', include('drsmoothie.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

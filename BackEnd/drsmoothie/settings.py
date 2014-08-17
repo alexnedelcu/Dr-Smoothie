@@ -5,6 +5,8 @@
 # of "djangoappengine" from this file.
 from djangoappengine.settings_base import *
 
+CMS_PERMISSION = True
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -90,10 +92,9 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     # This loads the index definitions, so it has to come first
     'autoload.middleware.AutoloadMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -129,6 +130,7 @@ INSTALLED_APPS = (
     # Dr Smoothie app
     'drsmoothie.rest'
 )
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,0 +1,17 @@
+//AddRecipe takes in json as this
+{
+	"name" : "sample name", 
+	"userkey" :"sample user key",
+	"ingredients": [ 
+		{"ingr_id" : "1", "quantity" : "2"},
+		{"ingr_id" : "2", "quantity" : "4"},
+		{"ingr_id" : "3", "quantity" : "8"},
+		{"ingr_id" : "4", "quantity" : "16"}
+ 	] 
+ }
+
+// AddUser takes in json as this
+{
+	"userkey" : "sample user name/key"
+}
+
