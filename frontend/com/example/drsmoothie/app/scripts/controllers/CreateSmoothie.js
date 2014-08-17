@@ -8,6 +8,6 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('CreateSmoothieCtrl', function ($scope) {
+  .controller('CreateSmoothieCtrl', ['$scope', 'restFactory', function ($scope, restFactory) {
 
-  });
+  }]);

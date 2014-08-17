@@ -1,6 +1,8 @@
 <div class="container-fluid screen" id="smoothieRecipeScreen">
     <div class="background background-dark">
-        
+      <div ng-controller="HeaderCtrl">
+             <div ng-include="header.url"></div>
+         </div>        
         <div class="text-center">
             <div class="btn-group" id="criteria-type" data-toggle="buttons">
               <label class="btn btn-primary active">

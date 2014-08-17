@@ -8,8 +8,8 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('SearchListCtrl', function ($scope) {
+  .controller('SearchListCtrl',['$scope', 'restFactory', function ($scope, restFactory) {
 
 
 
-  });
+  }]);
