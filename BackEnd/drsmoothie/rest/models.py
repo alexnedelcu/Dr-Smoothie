@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from adaptor.model import CsvModel
 
 # Nutrient model
 class Nutrient(models.Model):
@@ -7,11 +8,13 @@ class Nutrient(models.Model):
     name = models.CharField(max_length=100)
     unit = models.CharField(max_length=32)
 
+
+
 # Ingredient Model
 class Ingredient(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
-    unit = models.CharField(max_length=32)
+    #unit = models.CharField(max_length=32)
 
 # User model
 class User(models.Model):
@@ -23,7 +26,7 @@ class User(models.Model):
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, blank=True)
     timeAdded = models.DateTimeField(auto_now_add=True)
     
     @staticmethod
@@ -92,6 +95,5 @@ class RecipeUserRecommendationsMap(models.Model):
         else:
             r = q  # there should only be one entry
         return r
-    
     
     

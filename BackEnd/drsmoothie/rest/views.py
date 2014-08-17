@@ -42,6 +42,8 @@ def IngredientsByNutrient(request):
         ingredients.append(ingr.ingredient)
     
     return HttpResponse(serializers.serialize("json", ingredients))
+<<<<<<< HEAD
+=======
 
 def RecipesByUser(request):
     try:
@@ -140,3 +142,4 @@ def RemoveRecipe(request):
         responseMessage = "Recipe was not deleted."
 
     return HttpResponse(responseMessage)
+>>>>>>> FETCH_HEAD
