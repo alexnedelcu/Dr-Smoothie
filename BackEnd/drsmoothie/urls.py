@@ -7,16 +7,25 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'drsmoothie.rest.views.Ingredients', name='Ingredients'),
+    
     # GET
     url(r'^IngredientsByNutrient$', 'drsmoothie.rest.views.IngredientsByNutrient', name='GetIngredientsByNutrient'),
     url(r'^Nutrients$', 'drsmoothie.rest.views.Nutrients', name='Nutrients'),
+    url(r'^GetIngredient$', 'drsmoothie.rest.views.GetIngredient', name='GetIngredient'),
     url(r'^Ingredients$', 'drsmoothie.rest.views.Ingredients', name='Ingredients'),
     url(r'^RecipesByUser', 'drsmoothie.rest.views.RecipesByUser', name='RecipesByUser'),
     url(r'^FavoriteRecipes', 'drsmoothie.rest.views.FavoriteRecipes', name='FavoriteRecipes'),
     url(r'^TopRecipes', 'drsmoothie.rest.views.TopRecipes', name='TopRecipes'),
+    url(r'^Search', 'drsmoothie.rest.views.Search', name='Search'),
+    url(r'^Users', 'drsmoothie.rest.views.Users', name='Users'),
+    
     # POST
     url(r'^AddRecipe', 'drsmoothie.rest.views.AddRecipe', name='AddRecipe'),
     url(r'^AddUser', 'drsmoothie.rest.views.AddUser', name='AddUser'),
+    url(r'^RecommendRecipe', 'drsmoothie.rest.views.RecommendRecipe', name='RecommendRecipe'),
+    
+    # DELETE
+    url(r'^RemoveRecipe', 'drsmoothie.rest.views.RemoveRecipe', name='RemoveRecipe'),
     
     # url(r'^drsmoothie/', include('drsmoothie.foo.urls')),
 
