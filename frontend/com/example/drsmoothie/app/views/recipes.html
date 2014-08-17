@@ -1,20 +1,21 @@
 <div class="container-fluid screen" id="smoothieRecipeScreen">
     <div class="background background-dark">
-        
-
         <div ng-controller="HeaderCtrl">
-            <div ng-include="header.url"></div>
-        </div>
-        
+             <div ng-include="header.url"></div>
+         </div>
         <ul class="nav nav-tabs nav-justified nav-drsmoothie-bg" role="tablist" id="recipe-nav-tab">
-          <li class="active"><a href="#my-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> My Recipes</a></li>
-          <li><a href="#top-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-star"></span> Top Recipes</a></li>
-          <li><a href="#recommended-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-heart"></span> My Favorites</a></li>
+            <li class="active"><a href="#my-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> My Recipes</a></li>
+            <li><a href="#top-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-star"></span> Top Recipes</a></li>
+            <li><a href="#recommended-recipes" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-heart"></span> My Favorites</a></li>
         </ul>
 
         <div class="tab-content">
           <div class="tab-pane active" id="my-recipes">
             <table class="table smoothieList" ng-controller="MySmoothieListCtrl">
+                <div ng-repeat = "ingred in ing">
+                  {{ingred.pk}}
+                </div>
+
                 <thead class="dark-background">
                     <tr><th>Smoothie</th><th>Recommendations</th><th></th></tr>
                 </thead>

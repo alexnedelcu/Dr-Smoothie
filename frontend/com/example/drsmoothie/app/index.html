@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="styles/smoothieTheme.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="comdrsmoothieappApp">
+  <body>
+    <div ng-app="comdrsmoothieappApp">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -34,7 +35,10 @@
         <h3 class="text-muted">comdrsmoothieapp</h3>
       </div>
 	-->
+      
       <div ng-view=""></div>
+
+
 	<!--
 	<div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
@@ -79,7 +83,9 @@
       <!-- build:js({.tmp,app}) scripts/scripts.js -->
       <script src="scripts/app.js"></script>
       <script src="scripts/controllers/header.js"></script>
-      <script src="scripts/controllers/main.js"></script>
+      <script src="scripts/controllers/restFactory.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/search.js"></script>
       <script src="scripts/controllers/smoothieListPersonal.js"></script>
       <script src="scripts/controllers/smoothieListTop.js"></script>
       <script src="scripts/controllers/smoothieDetail.js"></script>

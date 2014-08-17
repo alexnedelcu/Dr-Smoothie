@@ -8,9 +8,9 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('SmoothieDetailCtrl', function ($scope) {
+  .controller('SmoothieDetailCtrl', ['$scope', 'restFactory', function ($scope, restFactory) {
     
     // TODO: ...
 
 
-  });
+  }]);
