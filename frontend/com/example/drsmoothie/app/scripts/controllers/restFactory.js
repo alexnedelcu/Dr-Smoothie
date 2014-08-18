@@ -10,7 +10,7 @@
 angular.module('comdrsmoothieappApp')
   .factory('restFactory', ['$http', function ($http) {
 
-  var urlBase = 'http://localhost:8000';
+  var urlBase = 'http://dr-smoothie.appspot.com';
   var restFactory = {};
 
   restFactory.getRecipeDetails = function(id){
@@ -52,7 +52,7 @@ angular.module('comdrsmoothieappApp')
   };
 
   restFactory.getIngredients = function(){
-    return $http.get(urlBase + '');
+    return $http.get(urlBase + '/Users');
   };
 
   return restFactory;
