@@ -1,21 +1,20 @@
 from django.db import models
 from django.db.models import Q
-from adaptor.model import CsvModel
+import sys
 
 # Nutrient model
 class Nutrient(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=128)
     unit = models.CharField(max_length=32)
-
-
 
 # Ingredient Model
 class Ingredient(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100, unique=True)
-    #unit = models.CharField(max_length=32)
-
+    name = models.CharField(max_length=128, unique=True)
+    unit = models.CharField(max_length=32)
+    type = models.CharField(max_length=64)
+    
 # User model
 class User(models.Model):
     key = models.CharField(max_length=256)
@@ -26,17 +25,21 @@ class User(models.Model):
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    user = models.ForeignKey(User, blank=True)
+    user = models.ForeignKey(User)
     timeAdded = models.DateTimeField(auto_now_add=True)
     
     @staticmethod
     def create(name, user):
         # test if the entry already exists
+        exists = True
         try:
             r = Recipe.objects.get(name__exact=name)
         except:
             r = Recipe(name=name,user=user)
             r.save()
+            exists = False
+        if exists:
+            raise Exception("Recipe Already Exists")
         return r
 
 # Relationship Mappings
@@ -85,15 +88,17 @@ class RecipeUserRecommendationsMap(models.Model):
     recipe = models.ForeignKey(Recipe)
     user = models.ForeignKey(User)
 
-    # TODO: test if this works properly
-    def create(self, recipe, user):
+    @staticmethod
+    def create(recipe, user):
         # test if the entry already exists
         q = RecipeUserRecommendationsMap.objects.filter(Q(recipe__exact=recipe) & Q(user__exact=user))
         
         if q.count() is 0:
             r = RecipeUserRecommendationsMap(recipe=recipe, user=user)
+            r.save()
         else:
             r = q  # there should only be one entry
         return r
+    
     
     
