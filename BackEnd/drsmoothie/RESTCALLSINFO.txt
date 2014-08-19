@@ -1,0 +1,65 @@
+#GET
+-if not noted- assume json list
+/IngredientsByNutrient?id=[nutrient id]
+returns json list of Ingredients filtered by nutrient id
+
+/Nutrients
+returns json list of all the nutriets
+
+/GetIngredient?id=[ingr id]
+returns ingredient json
+
+/Ingredients
+returns json list of all the Ingredients
+
+/RecipesByUser?userkey=[userkey]
+returns recipes filtered by user
+
+/FavoriteRecipes?userkey=[userkey]
+returns recipes recommended by a user
+
+/TopRecipes
+TODO
+
+/Users
+returns all Users
+
+/Search/Recipe?name=[name]
+returns recipes that have a name similar name argument
+
+/Search/Ingredient -TODO
+/Search/Nutrient - TODO
+
+# POST
+TODO - format the return value
+
+/AddRecipe
+request.body = 
+{
+    "name" : "sample name", 
+    "userkey" :"sample user key",
+    "ingredients": [ 
+        {"ingr_id" : "1", "quantity" : "2"},
+        {"ingr_id" : "2", "quantity" : "4"}
+    ] 
+}
+
+adds recipe and ingredientrecipe mappings to database
+
+returns text response for now
+
+TODO - format response
+/AddUser
+{
+    "userkey" : "sample user name/key"
+}
+
+TODO - format response
+/RecommendRecipe?recipeid=[id]&userkey=[userkey]
+adds
+
+# DELETE
+TODO - format response
+/RemoveRecipe?id=[recipeid]
+removes recipe with that id
+
