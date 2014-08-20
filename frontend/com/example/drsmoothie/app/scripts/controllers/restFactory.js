@@ -10,7 +10,8 @@
 angular.module('comdrsmoothieappApp')
   .factory('restFactory', ['$http', function ($http) {
 
-  var urlBase = 'http://dr-smoothie.appspot.com';
+  //var urlBase = 'http://localhost:8000'
+  var urlBase = 'http://dr-smoothie.appspot.com'
   var restFactory = {};
 
   restFactory.getRecipeDetails = function(id){

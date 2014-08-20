@@ -8,7 +8,7 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('MySmoothieListCtrl', ['$scope', 'restFactory', function ($scope, restFactory) {
+  .controller('MySmoothieListCtrl', ['$scope', 'restFactory',  function ($scope, restFactory) {
     $scope.ing;
 
     function getIng(){
@@ -17,8 +17,9 @@ angular.module('comdrsmoothieappApp')
           $scope.ing = ings;
         });
     }
+    
+    getIng()
 
-    getIng();
     
     $scope.mySmoothies = [
         {name:'Hearty Fruit and Oat Smoothie', recommendations: 30},
