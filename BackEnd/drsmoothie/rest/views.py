@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from models import *
 from django.core import serializers
 from django.db import models
-
+from utils import *
 # This is not necessary
 #from django.views.decorators.csrf import csrf_protect
 #from django.core.context_processors import csrf
@@ -21,18 +21,57 @@ def GetIngredient(request):
 # /Ingredients
 def Ingredients(request):
     ingredients = Ingredient.objects.all()
-    return HttpResponse(serializers.serialize("json", ingredients))
+    #djangojson = serializers.serialize("json", ingredients)
+    jsonlist = ConvertModelToJsonList(ingredients)
+
+    return HttpResponse(jsonlist)
 
 # /Nutrients
 def Nutrients(request):
     nutrients = Nutrient.objects.all()
-    return HttpResponse(serializers.serialize("json", nutrients))
+    #djangojson = serializers.serialize("json", nutrients)
+    jsonlist = ConvertModelToJsonList(nutrients)
+
+    return HttpResponse(jsonlist)
+
+# /IngredientByRecipe?id=[value]
+def IngredientsByRecipe(request):
+    recipeid = str(request.GET["id"])
+    ingrlist = []
+    try:
+        recipe = Recipe.objects.get(pk=recipeid)
+        recipemappings = RecipeIngrMap.objects.filter(recipe__exact=recipe)
+        for rm in recipemappings:
+            ingrlist.append(rm.ingredient)
+
+    except:
+        ingrlist = []
+    return HttpResponse(ConvertModelToJsonList(ingrlist))
+
+#/Recipe?id=[value]
+def GetRecipe(request):
+    djson = []
+    try:
+        ingrlist = []
+        recipe = Recipe.objects.get(pk=request.GET["id"])
+        recipemappings = RecipeIngrMap.objects.filter(recipe__exact=recipe)
+        for rm in recipemappings:
+            ingrlist.append(rm.ingredient)
+        recs = RecipeUserRecommendationsMap.objects.filter(recipe__exact=recipe)
+        djson = ConvertRecipeToJson(recipe, ingrlist, recs.count())
+        
+    except:
+        djson = []
+    return HttpResponse(djson)
 
 # Not needed for client
 # /Users
 def Users(request):
     users = User.objects.all()
-    return HttpResponse(serializers.serialize("json", users))
+    #djangojson = serializers.serialize("json", users)
+    jsonlist = ConvertModelToJsonList(users)
+
+    return HttpResponse(jsonlist)
 
 #TODO reformat response
 # /IngredientsByNutrient?id=[val]
@@ -48,11 +87,12 @@ def IngredientsByNutrient(request):
     ingredients = list()
     for ingr in related_ingredients:
         ingredients.append(ingr.ingredient)
-    
-    return HttpResponse(serializers.serialize("json", ingredients))
+
+    #djangojson = serializers.serialize("json", ingredients)
+    jsonlist = ConvertModelToJsonList(ingredients)
+    return HttpResponse(jsonlist)
 
 # TODO json formatting
-# Doesn't blow up
 # /RecipesByUser?userkey=[sample userkey]
 def RecipesByUser(request):
     try:
@@ -61,7 +101,7 @@ def RecipesByUser(request):
     except User.DoesNotExist:
         recipes = []
     
-    return HttpResponse(serializers.serialize("json", recipes))
+    return HttpResponse(ConvertModelToJsonList(recipes))
     
 # TODO json formatting
 # /FavoriteRecipes
@@ -96,34 +136,53 @@ def TopRecipes(request):
     #serializers.serialize("json", rlist[start:end])
     return HttpResponse(serializers.serialize("json", recipes[0]))
 
-def Search(request):
-    return HttpResponse('')
-
-def SearchIngredient(request):
+# /Search/Ingredient?name=[str]
+def SearchByIngredient(request):
     ingrname = str(request.GET['name'])
-    ingrfound = Ingredient.objects.all()
+    ingrlist = Ingredient.objects.all()
     
-    slist = []
-    for i in ingrfound:
-        if ingrname.lower() in str(i.name).lower():
-            slist.append(i)
-
-    ingrjson = serializers.serialize("json", slist)
+    found = None
+    for i in ingrlist:
+        if ingrname.lower() == str(i.name).lower():
+            found = i
+            break
     
-    return HttpResponse(ingrjson)
+    if found is None:
+        return HttpResponse('No results found.')
+    else:
+        recipes = []
+        rmapping = RecipeIngrMap.objects.filter(ingredient__exact=found)
+        
+        # adds in a recipe if it isn't already in the list 
+        for rm in rmapping:
+            recipes.append(rm.recipe)
+        return HttpResponse(ConvertModelToJsonList(recipes))
 
-def SearchNutrient(request):
+
+# /Search/Nutrient?name=[str]
+def SearchByNutrient(request):
     nutriname = str(request.GET['name'])
-    nutrifound = Ingredient.objects.all()
+    nutrilist = RecipeIngrMap.objects.all()
     
-    slist = []
-    for n in nutrifound:
-        if nutriname.lower() in str(n.name).lower():
-            slist.append(n)
+    nutrifound = None
+    for n in nutrilist:
+        if nutriname.lower() == str(n.name).lower():
+            nutrifound = n
+            break
+    if nutrifound is None:
+        return HttpResponse('No results found.')
+    else:
+        nutriIngrMapping = NutrIngrMap.objects.filter(nutrient__exact=nutrifound)
+        recipes = []
+        for ni in nutriIngrMapping:
+            templist = RecipeIngrMap.objects.filter(ingredient__exact=ni.ingredient)
+            
+            # adds in a recipe if it isn't already in the list 
+            for temp in templist:
+                if not temp.recipe in recipes:
+                    recipes.append(temp.recipe)
 
-    nutrijson = serializers.serialize("json", slist)
-
-    return HttpResponse(nutrijson)
+        return HttpResponse(ConvertModelToJsonList(recipes))
 
 # TODO not even started
 # /Search/Recipe?name=[str]
@@ -135,10 +194,8 @@ def SearchRecipe(request):
     for r in recipefound:
         if recipename.lower() in str(r.name).lower():
             slist.append(r)
-
-    recipejson = serializers.serialize("json", slist)
     
-    return HttpResponse(recipejson)
+    return HttpResponse(ConvertModelToJsonList(slist))
 
 # POST/PUT/UPDATE
 # /AddRecipe
