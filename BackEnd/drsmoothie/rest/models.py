@@ -9,12 +9,15 @@ class Nutrient(models.Model):
 	unit = models.CharField(max_length=32)
 	decimals = models.IntegerField()
 
+class IngredientType(models.Model):
+	id = models.AutoField(primary_key=True)
+	type = models.CharField(max_length=20)
+	
 # Ingredient Model
 class Ingredient(models.Model):
 	id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=128, unique=True)
-	unit = models.CharField(max_length=32)	# TODO: needs to be removed eventually
-	type = models.CharField(max_length=64)	# TODO: needs to be populated: fruit / vegetable etc
+	type = models.ForeignKey(IngredientType)	# TODO: needs to be populated: fruit / vegetable etc
 	
 # the Portion model holds a description of a weight type of a certain food
 class Portion(models.Model):
