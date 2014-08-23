@@ -272,3 +272,9 @@ def RemoveRecipe(request):
         responseMessage = str(sys.exc_info()[0])
 
     return HttpResponse(responseMessage)
+
+
+
+# view used only for Facebook redirect after successful share or login
+def RedirectURL(request) :
+    return HttpResponse('')
