@@ -41,12 +41,10 @@ def IngredientsByRecipe(request):
     try:
         recipe = Recipe.objects.get(pk=recipeid)
         recipemappings = RecipeIngrMap.objects.filter(recipe__exact=recipe)
-        for rm in recipemappings:
-            ingrlist.append(rm.ingredient)
 
     except:
         ingrlist = []
-    return HttpResponse(ConvertModelToJsonList(ingrlist))
+    return HttpResponse(ConvertIngrMapToJsonList(recipemappings))
 
 #/Recipe?id=[value]
 def GetRecipe(request):

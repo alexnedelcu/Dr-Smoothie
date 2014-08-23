@@ -10,10 +10,10 @@ urlpatterns = patterns('',
     
     # GET
     url(r'^IngredientsByNutrient$', 'drsmoothie.rest.views.IngredientsByNutrient', name='GetIngredientsByNutrient'),
-    url(r'^Nutrients$', 'drsmoothie.rest.views.Nutrients', name='Nutrients'),
     url(r'^GetIngredient$', 'drsmoothie.rest.views.GetIngredient', name='GetIngredient'),
     url(r'^Ingredients$', 'drsmoothie.rest.views.Ingredients', name='Ingredients'),
     url(r'^IngredientsByRecipe$', 'drsmoothie.rest.views.IngredientsByRecipe', name='IngredientsByRecipe'),
+    url(r'^Nutrients$', 'drsmoothie.rest.views.Nutrients', name='Nutrients'),
     url(r'^GetRecipe$', 'drsmoothie.rest.views.GetRecipe', name='GetRecipe'),
     url(r'^RecipesByUser$', 'drsmoothie.rest.views.RecipesByUser', name='RecipesByUser'),
     url(r'^FavoriteRecipes$', 'drsmoothie.rest.views.FavoriteRecipes', name='FavoriteRecipes'),
