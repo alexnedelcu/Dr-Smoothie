@@ -22,6 +22,9 @@ urlpatterns = patterns('',
     url(r'^Search/Recipe$', 'drsmoothie.rest.views.SearchRecipe', name='Search'),
     url(r'^Search/Ingredient$', 'drsmoothie.rest.views.SearchByIngredient', name='SearchIngr'),
     url(r'^Search/Nutrient$', 'drsmoothie.rest.views.SearchByNutrient', name='SearchByNutri'),
+
+    # GET view used to redirect facebook after successful login or share
+    url(r'^fbRedirect$', 'drsmoothie.rest.views.RedirectURL', name='fbRedirect$'),
     
     # POST
     url(r'^AddRecipe', 'drsmoothie.rest.views.AddRecipe', name='AddRecipe'),
