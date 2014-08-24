@@ -1,0 +1,146 @@
+#GET
+-if not noted- assume json list
+
+
+/IngredientsByNutrient?id=[nutrient id]
+returns json list of Ingredients filtered by nutrient id
+[
+	{
+		id: _, name: _, unit: _, type: _
+	}
+]
+
+
+
+/GetIngredient?id=[ingr id]
+returns ingredient json
+{
+	id: _, name: _, unit: _, type: _
+}
+
+
+
+/Ingredients
+returns json list of all the Ingredients
+[
+	{
+		type: "",
+		name: "12/31/2010",
+		unit: "",
+		id: 4503737066323968
+	},
+	...
+]
+
+
+
+# haven't tested it
+/IngredientsByRecipe?id=
+returns list of ingredients with quantity
+[
+	{
+		id: _, quantity: _, name: _, unit: _, type: _
+	}, ...
+]
+
+
+
+/Nutrients
+returns json list of nutrients :
+[
+	{ id: _, name: _, unit: _ }, ...
+]
+
+
+
+/GetRecipe?id=[val]
+returns 1 recipe
+{
+	timeAdded: "2014-08-17T17:49:49.621",
+	name: "Milk, human",
+	ingredients: "[]",
+	user: 5812155903377408,
+	recs: 0,
+	id: 11000000
+}
+
+
+
+/RecipesByUser?userkey=[userkey]
+returns recipes filtered by user
+[
+	{
+		timeAdded: "2014-08-17T17:49:49.621",
+		name: "Milk, human",
+		user: 5812155903377408,
+		recs: 0,
+		id: 11000000
+	}, ...{}
+]
+
+
+/Users
+returns all Users
+
+
+#haven't tested 
+/Search/Recipe?name=[name]
+/Search/Ingredient?name=[name]
+/Search/Nutrient?name=[name]
+returns recipelist
+[
+	{
+		timeAdded: "2014-08-17T17:49:49.621",
+		name: "Milk, human",
+		user: 5812155903377408,
+		recs: 0,
+		id: 11000000
+	}, ...{}
+]
+
+
+#NOT DONE
+/TopRecipes
+TODO
+
+/FavoriteRecipes?userkey=[userkey]
+returns recipes recommended by a user
+
+TODO - the reccommendation count
+IngredientsByRecipe returns recipe json list
+
+#NOT DONE ENDS
+
+# POST
+TODO - format the return value
+
+/AddRecipe
+request.body = 
+{
+    "name" : "sample name", 
+    "userkey" :"sample user key",
+    "ingredients": [ 
+        {"ingr_id" : "1", "quantity" : "2"},
+        {"ingr_id" : "2", "quantity" : "4"}
+    ] 
+}
+
+adds recipe and ingredientrecipe mappings to database
+
+returns text response for now
+
+TODO - format response
+/AddUser
+{
+    "userkey" : "sample user name/key"
+}
+
+TODO - format response
+/RecommendRecipe?recipeid=[id]&userkey=[userkey]
+adds
+
+# DELETE
+TODO - format response
+/RemoveRecipe?id=[recipeid]
+removes recipe with that id
+

@@ -1,0 +1,26 @@
+11111000^01/01/2009^12/31/2010^Milk, cow's, fluid, whole
+11112110^01/01/2009^12/31/2010^Milk, cow's, fluid, 2% fat
+11112210^01/01/2009^12/31/2010^Milk, cow's, fluid, 1% fat
+11113000^01/01/2009^12/31/2010^Milk, cow's, fluid, skim or nonfat, 0.5% or less butterfat
+11320000^01/01/2009^12/31/2010^Milk, soy, ready-to-drink, not baby's
+11411100^01/01/2009^12/31/2010^Yogurt, plain, whole milk
+11411200^01/01/2009^12/31/2010^Yogurt, plain, lowfat milk
+11411300^01/01/2009^12/31/2010^Yogurt, plain, nonfat milk
+42200500^01/01/2009^12/31/2010^Almond butter
+42201000^01/01/2009^12/31/2010^Cashew butter
+42401010^01/01/2009^12/31/2010^Coconut milk (liquid expressed from grated coconut meat, water added)
+42402010^01/01/2009^12/31/2010^Coconut cream (liquid expressed from grated coconut meat), canned, sweetened
+1^^^Cinnamon
+91705010^01/01/2009^12/31/2010^Milk chocolate candy, plain
+91705300^01/01/2009^12/31/2010^Chocolate, sweet or dark
+91705400^01/01/2009^12/31/2010^Chocolate, white
+91302010^01/01/2009^12/31/2010^Honey
+91101010^01/01/2009^12/31/2010^Sugar, white, granulated or lump
+91102010^01/01/2009^12/31/2010^Sugar, brown
+91103010^01/01/2009^12/31/2010^Sugar, maple
+91104100^01/01/2009^12/31/2010^Sugar, cinnamon
+91104200^01/01/2009^12/31/2010^Sugar, raw
+91300010^01/01/2009^12/31/2010^Syrup, NFS
+91301030^01/01/2009^12/31/2010^Corn syrup, light or dark
+91301060^01/01/2009^12/31/2010^Maple syrup (100% maple)
+91301080^01/01/2009^12/31/2010^Chocolate syrup, thin type

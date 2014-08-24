@@ -13,11 +13,18 @@ urlpatterns = patterns('',
     url(r'^Nutrients$', 'drsmoothie.rest.views.Nutrients', name='Nutrients'),
     url(r'^GetIngredient$', 'drsmoothie.rest.views.GetIngredient', name='GetIngredient'),
     url(r'^Ingredients$', 'drsmoothie.rest.views.Ingredients', name='Ingredients'),
-    url(r'^RecipesByUser', 'drsmoothie.rest.views.RecipesByUser', name='RecipesByUser'),
-    url(r'^FavoriteRecipes', 'drsmoothie.rest.views.FavoriteRecipes', name='FavoriteRecipes'),
-    url(r'^TopRecipes', 'drsmoothie.rest.views.TopRecipes', name='TopRecipes'),
-    url(r'^Search', 'drsmoothie.rest.views.Search', name='Search'),
-    url(r'^Users', 'drsmoothie.rest.views.Users', name='Users'),
+    url(r'^IngredientsByRecipe$', 'drsmoothie.rest.views.IngredientsByRecipe', name='IngredientsByRecipe'),
+    url(r'^GetRecipe$', 'drsmoothie.rest.views.GetRecipe', name='GetRecipe'),
+    url(r'^RecipesByUser$', 'drsmoothie.rest.views.RecipesByUser', name='RecipesByUser'),
+    url(r'^FavoriteRecipes$', 'drsmoothie.rest.views.FavoriteRecipes', name='FavoriteRecipes'),
+    url(r'^TopRecipes$', 'drsmoothie.rest.views.TopRecipes', name='TopRecipes'),
+    url(r'^Users$', 'drsmoothie.rest.views.Users', name='Users'),
+    url(r'^Search/Recipe$', 'drsmoothie.rest.views.SearchRecipe', name='Search'),
+    url(r'^Search/Ingredient$', 'drsmoothie.rest.views.SearchByIngredient', name='SearchIngr'),
+    url(r'^Search/Nutrient$', 'drsmoothie.rest.views.SearchByNutrient', name='SearchByNutri'),
+
+    # GET view used to redirect facebook after successful login or share
+    url(r'^fbRedirect$', 'drsmoothie.rest.views.RedirectURL', name='fbRedirect$'),
     
     # POST
     url(r'^AddRecipe', 'drsmoothie.rest.views.AddRecipe', name='AddRecipe'),
