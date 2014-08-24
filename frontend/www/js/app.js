@@ -35,10 +35,17 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
+    'ngTouch'
 //    'openfb',
 //    'socialModule'
-  ])
+  ]).run(function (OpenFB) {
+
+    console.log("run time");
+    console.log(OpenFB);
+
+    // initialize the openFB object and store the token
+    OpenFB.init('1447784508842506', window.localStorage);
+  })
 //    .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
 
 //        OpenFB.init('1447784508842506');

@@ -47,24 +47,6 @@ var openFB = (function() {
             }
         }
         /**
-         * Checks if the user has logged in with openFB and currently has a session api token.
-         * @param callback the function that receives the loginstatus
-         */
-
-    function getLoginStatus(callback) {
-            var token = tokenStore['fbtoken'],
-                loginStatus = {};
-            if (token) {
-                loginStatus.status = 'connected';
-                loginStatus.authResponse = {
-                    token: token
-                };
-            } else {
-                loginStatus.status = 'unknown';
-            }
-            if (callback) callback(loginStatus);
-        }
-        /**
          * Login to Facebook using OAuth. If running in a Browser, the OAuth workflow happens in a a popup window.
          * If running in Cordova container, it happens using the In-App Browser. Don't forget to install the In-App Browser
          * plugin in your Cordova project: cordova plugins add org.apache.cordova.inappbrowser.
@@ -261,6 +243,11 @@ var openFB = (function() {
             }
             return parts.join("&");
         }
+
+    function getAccessToken() {
+        return tokenStore['fbtoken'];
+    }
+
         // The public API
     return {
         init: init,
@@ -271,4 +258,5 @@ var openFB = (function() {
         oauthCallback: oauthCallback,
         getLoginStatus: getLoginStatus
     }
-}());
+}
+());
