@@ -54,7 +54,7 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/controllers/fbControllers.js"></script>
+    <script src="js/openfb-angular.js"></script>
     <script src="js/controllers/header.js"></script>
     <script src="js/controllers/restFactory.js"></script>
     <script src="js/controllers/main.js"></script>
@@ -66,7 +66,22 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-      <script src="js/openfb-angular.js"></script>
       </div>
+  <script>
+
+$(document).ready(function() {
+  $.ajaxSetup({ cache: true });
+  $.getScript('//connect.facebook.net/en_UK/all.js', function(){
+  //alert(1);
+    FB.init({
+      appId: '1447784508842506',
+          xfbml      : true,
+          version    : 'v2.0'
+    });
+    //$('#loginbutton,#feedbutton').removeAttr('disabled');
+    //FB.getLoginStatus(updateStatusCallback);
+  });
+});
+  </script>
   </body>
 </html>

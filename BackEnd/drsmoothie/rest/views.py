@@ -277,4 +277,4 @@ def RemoveRecipe(request):
 
 # view used only for Facebook redirect after successful share or login
 def RedirectURL(request) :
-    return HttpResponse('')
+    return HttpResponse('<html><body><script>window.close();</script></body></html>')
