@@ -20,7 +20,14 @@ def GetIngredient(request):
 
 # /Ingredients
 def Ingredients(request):
-    ingredients = Ingredient.objects.all()
+
+    if "type" in request.GET:
+        arg = str(request.GET["type"])
+        ingredientType = IngredientType.objects.get(type=arg)
+        ingredients = Ingredient.objects.filter(type__exact = ingredientType)
+    else:
+        ingredients = Ingredient.objects.all()
+
     #djangojson = serializers.serialize("json", ingredients)
     jsonlist = ConvertModelToJsonList(ingredients)
 
@@ -213,7 +220,7 @@ def AddRecipe(request):
         userfound = User.objects.get(key=userkey)
     except:
         userfound = None
-    if userfound is not None:    
+    if userfound is not None:
         try:
             addedrecipe = Recipe.create(recipename, userfound)
         except:
