@@ -5,6 +5,16 @@ from django.core import serializers
 from django.db import models
 import itertools
 
+
+
+	
+# parsing data from django style json
+#{
+	# pk: pk
+	# fields: { model data needed }
+#}
+
+
 def SerializeAndLoad(modellist):
 	jsonlist = serializers.serialize("json", modellist)
 	return json.loads(jsonlist)
@@ -30,25 +40,63 @@ def ConvertModelToJsonList(modellist):
 # e.g. (Ingredient.objects.all())
 def ConvertIngredientsToJson(ingredients):
 	jsonlist = []
-	weightjson = []
+	measurementjson = []
 	nutringrmapjson = []
+	nutrientlists = []
 	for ingr in ingredients:
-		weights = Weight.objects.filter(ingredient_exact=ingr)
-		weightjson.append(SerializeAndLoad(weights))
-		nutringrtemp = SerializeAndLoad(NutrIngrMap.objects.filter(ingr_exact=ingr))
-		nutringrjson.append(nutringrtemp)
+		measurements = SerializeAndLoad(Measurement.objects.filter(ingredient=ingr))
+		#measurements = SerializeAndLoad(Weight.objects.filter(ingredient=ingr))
+		measurementjson.append(measurements)
+
+		mapping = NutrIngrMap.objects.filter(ingredient=ingr)
+		nutrilist = []
+		for m in mapping:
+			nutrilist.append(m.nutrient)
 		
+		#nutringrmapjson.append(nutringrtemp)
+		nutrientlists.append(SerializeAndLoad(nutrilist))
+
 	ingrjson = SerializeAndLoad(ingredients)
+	jsonlist = []
 
-	for i, w in itertools.izip(ingrjson, weightjson):
-		newjson = i["fields"]
-		newjson["units"] = 
+	# ingr -ingredient json
+	# wgts - json list of Measurements
+	# nutrs - json list of Nutrients
+	#for ingr, mnts, nimaps in itertools.izip(ingrjson, measurementjson, nutringrmapjson):
+	for ingr, mnts, nutrs in itertools.izip(ingrjson, measurementjson, nutrientlists):
+		newjson = ingr["fields"]#["fields"]
+		newjson["id"] = ingr["pk"]
+		newjson["name"] = ingr["fields"]["name"]
 
-	# parsing data from django style json
-	#{
-		# pk: pk
-		# fields: { model data needed }
-	#}
+		unitsjson = []
+		for m in mnts:
+			mfields = m["fields"]
+			#mjson = mfields["portion"]["fields"]
+			mjson = mfields["unit"]["fields"]
+			unitsjson.append(mjson)
+
+		nutrilistjson = []
+		for nt in nutrs:
+			njson = nt["fields"]
+			njson["id"] = nt["pk"]
+			nutrilistjson.append(njson)
+
+#		nutrjson = []
+#		for nim in nimaps:
+#			nutr = nim["fields"]
+#			njson = nutr
+#			njson["id"] = nutr["nutrient"]["pk"]
+#			njson["name"] = nutr["nutrient"]["fields"]["name"]
+#			nutrjson.append(njson)
+
+		newjson["units"] = unitsjson
+		newjson["nutrient"] = nutrilistjson
+		#newjson["nutrients"] = nutrijson
+
+		jsonlist.append(newjson)
+
+	# usable json
+	return json.dumps(jsonlist)
 
 def ConvertIngrMapToJsonList(modellist):
 	jsonlist = []

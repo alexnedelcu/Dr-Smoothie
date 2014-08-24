@@ -20,7 +20,6 @@ def GetIngredient(request):
 
 # /Ingredients
 def Ingredients(request):
-
     if "type" in request.GET:
         arg = str(request.GET["type"])
         ingredientType = IngredientType.objects.get(type=arg)
@@ -28,9 +27,7 @@ def Ingredients(request):
     else:
         ingredients = Ingredient.objects.all()
 
-    #djangojson = serializers.serialize("json", ingredients)
-    jsonlist = ConvertModelToJsonList(ingredients)
-
+    jsonlist = ConvertIngredientsToJson(ingredients)
     return HttpResponse(jsonlist)
 
 # /Nutrients

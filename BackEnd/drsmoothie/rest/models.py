@@ -19,17 +19,19 @@ class Ingredient(models.Model):
 	name = models.CharField(max_length=128, unique=True)
 	type = models.ForeignKey(IngredientType)	# TODO: needs to be populated: fruit / vegetable etc
 	
-# the Portion model holds a description of a weight type of a certain food
-class Portion(models.Model):
+# the Unit model holds a description of a Measurement type of a certain food
+class Unit(models.Model):
+#class Portion(model.Model):
 	id = models.AutoField(primary_key=True)
 	description = models.CharField(max_length=128)
 	
-# Ingredient Weights - a one to many relationship from Ingredient to Weights.
-# The weights could be measured in multiple ways
-class Weight(models.Model):
+# Ingredient Measurement - a one to many relationship from Ingredient to Measurements.
+# The Measurement could be measured in multiple ways
+class Measurement(models.Model):
+#class Weight(models.Model):
 	id = models.AutoField(primary_key=True)
 	ingredient = models.ForeignKey(Ingredient)
-	portion = models.OneToOneField(Portion)
+	unit = models.OneToOneField(Unit)
 	amount_grams = models.FloatField()
 	
 	
