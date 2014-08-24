@@ -3,6 +3,11 @@ import sys
 from models import *
 from django.core import serializers
 from django.db import models
+import itertools
+
+def SerializeAndLoad(modellist):
+	jsonlist = serializers.serialize("json", modellist)
+	return json.loads(jsonlist)
 
 # serialize a list of django style json
 # into json we need for the frontend
@@ -18,6 +23,32 @@ def ConvertModelToJsonList(modellist):
 		newjson["id"] = e["pk"]
 		jsonlist.append(newjson)
 	return json.dumps(jsonlist)
+
+#for f,b in itertools.izip(foo,bar):
+#    print(f,b)
+# takes in a list of ingredients
+# e.g. (Ingredient.objects.all())
+def ConvertIngredientsToJson(ingredients):
+	jsonlist = []
+	weightjson = []
+	nutringrmapjson = []
+	for ingr in ingredients:
+		weights = Weight.objects.filter(ingredient_exact=ingr)
+		weightjson.append(SerializeAndLoad(weights))
+		nutringrtemp = SerializeAndLoad(NutrIngrMap.objects.filter(ingr_exact=ingr))
+		nutringrjson.append(nutringrtemp)
+		
+	ingrjson = SerializeAndLoad(ingredients)
+
+	for i, w in itertools.izip(ingrjson, weightjson):
+		newjson = i["fields"]
+		newjson["units"] = 
+
+	# parsing data from django style json
+	#{
+		# pk: pk
+		# fields: { model data needed }
+	#}
 
 def ConvertIngrMapToJsonList(modellist):
 	jsonlist = []
