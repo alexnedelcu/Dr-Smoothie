@@ -16,7 +16,7 @@ def GetIngredient(request):
     retrievedIngredient = Ingredient.objects.get(pk=request.GET['id'])
     
     #Ingredient.objects.get(pk=request.GET['id'])
-    return HttpResponse(serializers.serialize("json", [retrievedIngredient]))
+    return HttpResponse(ConvertIngredientsToJson([retrievedIngredient]))
 
 # /Ingredients
 def Ingredients(request):
@@ -28,6 +28,7 @@ def Ingredients(request):
         ingredients = Ingredient.objects.all()
 
     jsonlist = ConvertIngredientsToJson(ingredients)
+    
     return HttpResponse(jsonlist)
 
 # /Nutrients
@@ -47,10 +48,9 @@ def IngredientsByRecipe(request):
         recipemappings = RecipeIngrMap.objects.filter(recipe__exact=recipe)
         for rm in recipemappings:
             ingrlist.append(rm.ingredient)
-
     except:
         ingrlist = []
-    return HttpResponse(ConvertModelToJsonList(ingrlist))
+    return HttpResponse(ConvertIngredientsToJson(ingrlist))
 
 #/Recipe?id=[value]
 def GetRecipe(request):
@@ -93,7 +93,7 @@ def IngredientsByNutrient(request):
         ingredients.append(ingr.ingredient)
 
     #djangojson = serializers.serialize("json", ingredients)
-    jsonlist = ConvertModelToJsonList(ingredients)
+    jsonlist = ConvertIngredientsToJson(ingredients)
     return HttpResponse(jsonlist)
 
 # TODO json formatting

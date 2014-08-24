@@ -5,15 +5,12 @@ from django.core import serializers
 from django.db import models
 import itertools
 
-
-
 	
 # parsing data from django style json
 #{
 	# pk: pk
 	# fields: { model data needed }
 #}
-
 
 def SerializeAndLoad(modellist):
 	jsonlist = serializers.serialize("json", modellist)
@@ -41,39 +38,49 @@ def ConvertModelToJsonList(modellist):
 def ConvertIngredientsToJson(ingredients):
 	jsonlist = []
 	measurementjson = []
-	nutringrmapjson = []
+#	nutringrmapjson = []
 	nutrientlists = []
+	unitsjson = []
 	for ingr in ingredients:
-		measurements = SerializeAndLoad(Measurement.objects.filter(ingredient=ingr))
-		#measurements = SerializeAndLoad(Weight.objects.filter(ingredient=ingr))
-		measurementjson.append(measurements)
-
-		mapping = NutrIngrMap.objects.filter(ingredient=ingr)
+		units = []
 		nutrilist = []
+		
+		measurements = Measurement.objects.filter(ingredient=ingr)
+		mapping = NutrIngrMap.objects.filter(ingredient=ingr)
+		for m in measurements:
+			unit = m.unit
+			units.append(unit)
+			
 		for m in mapping:
 			nutrilist.append(m.nutrient)
 		
-		#nutringrmapjson.append(nutringrtemp)
+		unitsjson.append(SerializeAndLoad(units))
+		measurementjson.append(SerializeAndLoad(measurements))
 		nutrientlists.append(SerializeAndLoad(nutrilist))
 
 	ingrjson = SerializeAndLoad(ingredients)
-	jsonlist = []
 
 	# ingr -ingredient json
 	# wgts - json list of Measurements
 	# nutrs - json list of Nutrients
 	#for ingr, mnts, nimaps in itertools.izip(ingrjson, measurementjson, nutringrmapjson):
-	for ingr, mnts, nutrs in itertools.izip(ingrjson, measurementjson, nutrientlists):
+	for ingr, mnts, nutrs, units in itertools.izip(ingrjson, measurementjson, nutrientlists, unitsjson):
 		newjson = ingr["fields"]#["fields"]
 		newjson["id"] = ingr["pk"]
 		newjson["name"] = ingr["fields"]["name"]
 
-		unitsjson = []
-		for m in mnts:
-			mfields = m["fields"]
+		jsonunits = []
+		for u in units:
+			fields = u["fields"]
+			ujson = fields
+			ujson["id"] = u["pk"]
+			jsonunits.append(ujson)
+
+		#for m in mnts:
+		#	mfields = m["fields"]
 			#mjson = mfields["portion"]["fields"]
-			mjson = mfields["unit"]["fields"]
-			unitsjson.append(mjson)
+		#	mjson = mfields["unit"]["fields"]
+		#	unitsjson.append(mjson)
 
 		nutrilistjson = []
 		for nt in nutrs:
@@ -89,9 +96,8 @@ def ConvertIngredientsToJson(ingredients):
 #			njson["name"] = nutr["nutrient"]["fields"]["name"]
 #			nutrjson.append(njson)
 
-		newjson["units"] = unitsjson
+		newjson["units"] = jsonunits
 		newjson["nutrient"] = nutrilistjson
-		#newjson["nutrients"] = nutrijson
 
 		jsonlist.append(newjson)
 
