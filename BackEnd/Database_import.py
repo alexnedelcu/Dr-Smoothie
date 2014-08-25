@@ -15,8 +15,8 @@ class DjModels:
 		return i
 		
 	@staticmethod
-	def addMeasurement(id, ingredient, portion, amount_grams):
-		w, created = Measurement.objects.get_or_create(id = id, ingredient=ingredient, portion = portion, amount_grams = amount_grams)
+	def addMeasurement(id, ingredient, unit, amount_grams):
+		w, created = Measurement.objects.get_or_create(id = id, ingredient=ingredient, unit = unit, amount_grams = amount_grams)
 		
 		if created:
 			w.save()
