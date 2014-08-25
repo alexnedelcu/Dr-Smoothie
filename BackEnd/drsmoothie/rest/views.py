@@ -239,9 +239,9 @@ def AddUser(request):
     try:
         newuserkey = str(data["userkey"])
         userexists = User.objects.get_or_create(key=newuserkey)
-        responseMessage = 'User was created or already exists'
+        responseMessage = '{userKey: "' + userexists.key + '"}'
     except:
-        responseMessage = 'User was not created.'
+        responseMessage = '{error: "User was not created."}'
 
     return HttpResponse(responseMessage)
 
