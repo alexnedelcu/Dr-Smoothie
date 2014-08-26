@@ -16,6 +16,16 @@ def SerializeAndLoad(modellist):
 	jsonlist = serializers.serialize("json", modellist)
 	return json.loads(jsonlist)
 
+
+def CreateRecommendationCountList(recipes):
+	reclist = []
+	for r in recipes:
+		reccount = Recipe.objects.filter(recipe__exact=r).count()
+		reclist.append(reccount)
+
+	return reclist
+
+
 # serialize a list of django style json
 # into json we need for the frontend
 # list is a result of 
@@ -30,6 +40,7 @@ def ConvertModelToJsonList(modellist):
 		newjson["id"] = e["pk"]
 		jsonlist.append(newjson)
 	return json.dumps(jsonlist)
+
 
 #for f,b in itertools.izip(foo,bar):
 #    print(f,b)
@@ -104,10 +115,36 @@ def ConvertIngredientsToJson(ingredients):
 	# usable json
 	return json.dumps(jsonlist)
 
+# takes in a django retrieved list of nutrients
+# converts into json format for how the frontend wants it
+def ConvertNutrListToJsonList(nutrlist):
+	jsonlist = []
+	encoded = SerializeAndLoad(nutrlist)
+
+	for e in encoded:
+		njson = e["fields"]
+		njson["id"] = e["pk"]
+		jsonlist.append(njson)
+
+	return json.dumps(jsonlist)
+
+# must have a list of integers that represent number of recommendations
+def ConvertRecipeToJsonList(recipelist, reclist):
+	jsonlist = []
+	encoded = SerializeAndLoad(recipelist)
+	
+	for e, rec in itertools.izip(encoded, reclist):
+		rjson = e["fields"]
+		rjson["id"] = e["pk"]
+		rjson["recs"] = rec
+		jsonlist.append(rjson)
+
+	return json.dumps(jsonlist)
+
+#
 def ConvertIngrMapToJsonList(modellist):
 	jsonlist = []
-	djangojson = serializers.serialize("json", modellist)
-	encoded = json.loads(djangojson)
+	encoded = SerializeAndLoad(modellist)
 
 	for e in encoded:
 		fields = e["fields"]
@@ -118,27 +155,31 @@ def ConvertIngrMapToJsonList(modellist):
 		jsonlist.append(newjson)
 	return json.dumps(jsonlist)
 
-def ConvertRecipeToJsonList(recipelist):
+
+
+def ConvertRecipeToJsonList2(recipelist):
 	jsonlist = []
 	recdict = {}
 	for r in recipelist:
 		recs = RecipeUserRecommendationsMap.objects.filter(recipe__exact)
 		recdict[str(r.pk)] = recs
 	
-	djangojson = serializers.serialize("json", recipelist)
-	encoded = json.loads(djangojson)
+	encoded = SerializeAndLoad(recipelist)
+
 	for e in encoded:
 		rid = e["pk"]
 		newjson = e["fields"]
 		newjson["id"] = rid
 		newjson[rid] = recdict[rid]
 		jsonlist.append(newjson)
+
 	return json.dumps(jsonlist)
 
 
 def ConvertRecipeToJson(recipe, ingrmaplist, recs):
 	djangojson = serializers.serialize("json", [recipe])
 	encoded = json.loads(djangojson)
+
 	newjson = encoded[0]["fields"]
 	newjson["id"] = encoded[0]["pk"]
 	newjson["ingredients"] = ConvertModelToJsonList(ingrmaplist)
