@@ -35,7 +35,7 @@ def Ingredients(request):
 def Nutrients(request):
     nutrients = Nutrient.objects.all()
     #djangojson = serializers.serialize("json", nutrients)
-    jsonlist = ConvertModelToJsonList(nutrients)
+    jsonlist = ConvertNutrListToJsonList(nutrients)
 
     return HttpResponse(jsonlist)
 
@@ -102,10 +102,15 @@ def RecipesByUser(request):
     try:
         userfound = User.objects.get(key=request.GET['userkey'])
         recipes = Recipe.objects.filter(user__exact = userfound)
+        
+        reclist = CreateRecommendationCountList(recipes)
+        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        
+        return HttpResponse(jsonlist)
+
     except User.DoesNotExist:
         recipes = []
-    
-    return HttpResponse(ConvertModelToJsonList(recipes))
+        return HttpResponse(serializers.serialize("json", []))
     
 # TODO json formatting
 # /FavoriteRecipes
@@ -113,11 +118,20 @@ def FavoriteRecipes(request):
     try:
         userfound = User.objects.get(key=request.GET['userkey'])
         favorites = RecipeUserRecommendationsMap.objects.filter(user__exact=userfound)
+        
+        recipes = []
+        recslist = []
+        for rmap in favorites:
+            recipes.append(rmap.recipe)
+            reccount = RecipeUserRecommendationsMap.objects.filter(recipe__exact=rmap.recipe).count()
+            recslist.add(reccount)
+
+        jsonlist = ConvertRecipeToJsonList(recipes, reclist)
+
+        return HttpResponse(jsonlist)
+
     except:
-        userfound = None
-        favorites = []
-    
-    return HttpResponse(serializers.serialize("json", favorites))
+        return HttpResponse(serializers.serialize("json", []))
 
 # TODO
 # -json formatting
@@ -133,12 +147,16 @@ def TopRecipes(request):
         recommendations = len(RecipeUserRecommendationsMap.objects.filter(recipe=r))
         rlist.append((r,recommendations))
 
-    #list.sort(rlist, key=lambda tup: tup[1])
-    sorted(rlist,key=lambda x: x[1])
-    #for pair in rlist:
-    #   serializers.serialize("json", pair)
-    #serializers.serialize("json", rlist[start:end])
-    return HttpResponse(serializers.serialize("json", recipes[0]))
+    sorted(rlist, key=lambda x: x[1])
+
+    recipes = []
+    recs = []
+    for pair in rlist:
+        recipes.append(pair[0])
+        recs.append(pair[1])
+
+    jsonlist = ConvertRecipeToJsonList(recipes, recs)
+    return HttpResponse(jsonlist)
 
 # /Search/Ingredient?name=[str]
 def SearchByIngredient(request):
@@ -160,7 +178,10 @@ def SearchByIngredient(request):
         # adds in a recipe if it isn't already in the list 
         for rm in rmapping:
             recipes.append(rm.recipe)
-        return HttpResponse(ConvertModelToJsonList(recipes))
+        
+        reclist = CreateRecommendationCountList(recipes)
+        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        return HttpResponse(jsonlist)
 
 
 # /Search/Nutrient?name=[str]
@@ -186,7 +207,9 @@ def SearchByNutrient(request):
                 if not temp.recipe in recipes:
                     recipes.append(temp.recipe)
 
-        return HttpResponse(ConvertModelToJsonList(recipes))
+        reclist = CreateRecommendationCountList(recipes)
+        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        return HttpResponse(jsonlist)
 
 # TODO not even started
 # /Search/Recipe?name=[str]
@@ -194,12 +217,14 @@ def SearchRecipe(request):
     recipename = str(request.GET['name'])
     recipefound = Recipe.objects.all()
 
-    slist = []
+    recipes = []
     for r in recipefound:
         if recipename.lower() in str(r.name).lower():
-            slist.append(r)
-    
-    return HttpResponse(ConvertModelToJsonList(slist))
+            recipes.append(r)
+
+    reclist = CreateRecommendationCountList(recipes)
+    jsonlist = ConvertModelToJsonList(recipes, reclist)
+    return HttpResponse(jsonlist)
 
 # POST/PUT/UPDATE
 # /AddRecipe
