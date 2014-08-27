@@ -12,7 +12,7 @@ angular.module('comdrsmoothieappApp')
     
 console.log(openFB);
     $scope.share = function() {
-alert(1);console.log(openFB);console.log(openFB.getAccessToken());
+
       // publish the object
       var url="https://graph.facebook.com/me/objects/com-drexel-smoothie:smoothie";
 

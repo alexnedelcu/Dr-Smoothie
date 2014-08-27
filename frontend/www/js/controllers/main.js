@@ -19,27 +19,16 @@ angular.module('comdrsmoothieappApp')
     $scope.userFirstName = '';
     $scope.userID='';
 
-    // check if the user is already logged into Facebook
-    openFB.getLoginStatus (function (param) {
-    console.log(param);
-        if (param.status == "connected") {
-            showUserInfo(function (data) {
-                $("#userInfo").show();
-                redirectToHomePage(3000);
-            });
-        }
 
-        if (param.status == "unknown") {
-            $("#btnLogin").show().animate({}, 1000);
-        }
-    });
-
+    console.log((new Date()).getTime());
 
     // login
     $scope.login = function() {
         openFB.login('email,publish_stream',
-            function() {
+            function(data) {
                 redirectToHomePage(2000);
+                console.log(data);
+                restFactory.addUser(openFB.getAccessToken());
             },
             function() {
                 location.reload();
@@ -72,4 +61,23 @@ angular.module('comdrsmoothieappApp')
     console.log("error");
         console.log(error);
     }
+
+
+    // check if the user is already logged into Facebook
+    openFB.getLoginStatus (function (param) {
+    console.log(param);
+        if (param.status == "connected") {
+            showUserInfo(function (data) {
+                $("#userInfo").show();
+                redirectToHomePage(3000);
+            });
+        } else if (param.status == 'expired') {
+            $scope.login();
+        }
+
+        if (param.status == "unknown") {
+            $("#btnLogin").show().animate({}, 1000);
+        }
+    });
+
   }]);
