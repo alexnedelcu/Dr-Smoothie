@@ -33,6 +33,10 @@ angular.module('comdrsmoothieappApp')
   	return $http.post(urlBase + '/recipe', recipe);
   };
 
+  restFactory.addUser = function(facebookID){
+  	return $http.post(urlBase + '/AddUser', {fbID: facebookID}).success(function (data) {console.log(data)});
+  };
+
   //delete doesnot take a body
   //we need to pass recipeid as well as userid
   restFactory.removeRecipe = function(recipe){
@@ -51,8 +55,8 @@ angular.module('comdrsmoothieappApp')
   	return $http.get(urlBase + '/search/' + nut);
   };
 
-  restFactory.getIngredients = function(){
-    return $http.get(urlBase + '');
+  restFactory.getIngredients = function(type, successCallback){
+    return $http.get(urlBase + '/Ingredients?type='+type).success(successCallback);
   };
 
   return restFactory;

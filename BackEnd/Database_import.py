@@ -15,16 +15,16 @@ class DjModels:
 		return i
 		
 	@staticmethod
-	def addWeight(id, ingredient, portion, amount_grams):
-		w, created = Weight.objects.get_or_create(id = id, ingredient=ingredient, portion = portion, amount_grams = amount_grams)
+	def addMeasurement(id, ingredient, unit, amount_grams):
+		w, created = Measurement.objects.get_or_create(id = id, ingredient=ingredient, unit = unit, amount_grams = amount_grams)
 		
 		if created:
 			w.save()
 		return w
 	
 	@staticmethod
-	def addPortion(id, description):
-		p, created = Portion.objects.get_or_create(id=id, description=description)
+	def addUnits(id, description):
+		p, created = Unit.objects.get_or_create(id=id, description=description)
 		
 		if created is True:
 			p.save()
@@ -72,9 +72,9 @@ class Helper:
 			p = Helper.findCorrespondingEntries("../database_to_import/ascii/FoodPortionDesc.txt", 0, w[3])
 			print "\t\tportion for ", p[0][0], p[0][3]
 			
-			portionByModel = DjModels.addPortion(p[0][0], p[0][3])
-			#weight = addWeight(id, ingredient, portion, amount_grams)
-			weightByModel = DjModels.addWeight(w[0], ingredientByModel, portionByModel, w[6])
+			portionByModel = DjModels.addUnits(p[0][0], p[0][3])
+			#weight = addMeasurement(id, ingredient, portion, amount_grams)
+			weightByModel = DjModels.addMeasurement(w[0], ingredientByModel, portionByModel, w[6])
 	
 	@staticmethod
 	def importNutrients(ingredientByModel):

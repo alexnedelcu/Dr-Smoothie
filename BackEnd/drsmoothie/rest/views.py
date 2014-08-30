@@ -16,21 +16,26 @@ def GetIngredient(request):
     retrievedIngredient = Ingredient.objects.get(pk=request.GET['id'])
     
     #Ingredient.objects.get(pk=request.GET['id'])
-    return HttpResponse(serializers.serialize("json", [retrievedIngredient]))
+    return HttpResponse(ConvertIngredientsToJson([retrievedIngredient]))
 
 # /Ingredients
 def Ingredients(request):
-    ingredients = Ingredient.objects.all()
-    #djangojson = serializers.serialize("json", ingredients)
-    jsonlist = ConvertModelToJsonList(ingredients)
+    if "type" in request.GET:
+        arg = str(request.GET["type"])
+        ingredientType = IngredientType.objects.get(type=arg)
+        ingredients = Ingredient.objects.filter(type__exact = ingredientType)
+    else:
+        ingredients = Ingredient.objects.all()
 
+    jsonlist = ConvertIngredientsToJson(ingredients)
+    
     return HttpResponse(jsonlist)
 
 # /Nutrients
 def Nutrients(request):
     nutrients = Nutrient.objects.all()
     #djangojson = serializers.serialize("json", nutrients)
-    jsonlist = ConvertModelToJsonList(nutrients)
+    jsonlist = ConvertNutrListToJsonList(nutrients)
 
     return HttpResponse(jsonlist)
 
@@ -43,10 +48,9 @@ def IngredientsByRecipe(request):
         recipemappings = RecipeIngrMap.objects.filter(recipe__exact=recipe)
         for rm in recipemappings:
             ingrlist.append(rm.ingredient)
-
     except:
         ingrlist = []
-    return HttpResponse(ConvertModelToJsonList(ingrlist))
+    return HttpResponse(ConvertIngredientsToJson(ingrlist))
 
 #/Recipe?id=[value]
 def GetRecipe(request):
@@ -89,7 +93,7 @@ def IngredientsByNutrient(request):
         ingredients.append(ingr.ingredient)
 
     #djangojson = serializers.serialize("json", ingredients)
-    jsonlist = ConvertModelToJsonList(ingredients)
+    jsonlist = ConvertIngredientsToJson(ingredients)
     return HttpResponse(jsonlist)
 
 # TODO json formatting
@@ -98,10 +102,15 @@ def RecipesByUser(request):
     try:
         userfound = User.objects.get(key=request.GET['userkey'])
         recipes = Recipe.objects.filter(user__exact = userfound)
+        
+        reclist = CreateRecommendationCountList(recipes)
+        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        
+        return HttpResponse(jsonlist)
+
     except User.DoesNotExist:
         recipes = []
-    
-    return HttpResponse(ConvertModelToJsonList(recipes))
+        return HttpResponse(serializers.serialize("json", []))
     
 # TODO json formatting
 # /FavoriteRecipes
@@ -109,11 +118,20 @@ def FavoriteRecipes(request):
     try:
         userfound = User.objects.get(key=request.GET['userkey'])
         favorites = RecipeUserRecommendationsMap.objects.filter(user__exact=userfound)
+        
+        recipes = []
+        recslist = []
+        for rmap in favorites:
+            recipes.append(rmap.recipe)
+            reccount = RecipeUserRecommendationsMap.objects.filter(recipe__exact=rmap.recipe).count()
+            recslist.add(reccount)
+
+        jsonlist = ConvertRecipeToJsonList(recipes, reclist)
+
+        return HttpResponse(jsonlist)
+
     except:
-        userfound = None
-        favorites = []
-    
-    return HttpResponse(serializers.serialize("json", favorites))
+        return HttpResponse(serializers.serialize("json", []))
 
 # TODO
 # -json formatting
@@ -129,12 +147,16 @@ def TopRecipes(request):
         recommendations = len(RecipeUserRecommendationsMap.objects.filter(recipe=r))
         rlist.append((r,recommendations))
 
-    #list.sort(rlist, key=lambda tup: tup[1])
-    sorted(rlist,key=lambda x: x[1])
-    #for pair in rlist:
-    #   serializers.serialize("json", pair)
-    #serializers.serialize("json", rlist[start:end])
-    return HttpResponse(serializers.serialize("json", recipes[0]))
+    sorted(rlist, key=lambda x: x[1])
+
+    recipes = []
+    recs = []
+    for pair in rlist:
+        recipes.append(pair[0])
+        recs.append(pair[1])
+
+    jsonlist = ConvertRecipeToJsonList(recipes, recs)
+    return HttpResponse(jsonlist)
 
 # /Search/Ingredient?name=[str]
 def SearchByIngredient(request):
@@ -156,7 +178,10 @@ def SearchByIngredient(request):
         # adds in a recipe if it isn't already in the list 
         for rm in rmapping:
             recipes.append(rm.recipe)
-        return HttpResponse(ConvertModelToJsonList(recipes))
+        
+        reclist = CreateRecommendationCountList(recipes)
+        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        return HttpResponse(jsonlist)
 
 
 # /Search/Nutrient?name=[str]
@@ -182,7 +207,9 @@ def SearchByNutrient(request):
                 if not temp.recipe in recipes:
                     recipes.append(temp.recipe)
 
-        return HttpResponse(ConvertModelToJsonList(recipes))
+        reclist = CreateRecommendationCountList(recipes)
+        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        return HttpResponse(jsonlist)
 
 # TODO not even started
 # /Search/Recipe?name=[str]
@@ -190,12 +217,14 @@ def SearchRecipe(request):
     recipename = str(request.GET['name'])
     recipefound = Recipe.objects.all()
 
-    slist = []
+    recipes = []
     for r in recipefound:
         if recipename.lower() in str(r.name).lower():
-            slist.append(r)
-    
-    return HttpResponse(ConvertModelToJsonList(slist))
+            recipes.append(r)
+
+    reclist = CreateRecommendationCountList(recipes)
+    jsonlist = ConvertModelToJsonList(recipes, reclist)
+    return HttpResponse(jsonlist)
 
 # POST/PUT/UPDATE
 # /AddRecipe
@@ -213,7 +242,7 @@ def AddRecipe(request):
         userfound = User.objects.get(key=userkey)
     except:
         userfound = None
-    if userfound is not None:    
+    if userfound is not None:
         try:
             addedrecipe = Recipe.create(recipename, userfound)
         except:
@@ -235,9 +264,9 @@ def AddUser(request):
     try:
         newuserkey = str(data["userkey"])
         userexists = User.objects.get_or_create(key=newuserkey)
-        responseMessage = 'User was created or already exists'
+        responseMessage = '{userKey: "' + userexists.key + '"}'
     except:
-        responseMessage = 'User was not created.'
+        responseMessage = '{error: "User was not created."}'
 
     return HttpResponse(responseMessage)
 
