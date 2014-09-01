@@ -22,8 +22,11 @@ def GetIngredient(request):
 def Ingredients(request):
     if "type" in request.GET:
         arg = str(request.GET["type"])
-        ingredientType = IngredientType.objects.get(type=arg)
-        ingredients = Ingredient.objects.filter(type__exact = ingredientType)
+        try:
+            ingredientType = IngredientType.objects.get(type=arg)
+            ingredients = Ingredient.objects.filter(type__exact = ingredientType)
+        except:
+            ingredients = []
     else:
         ingredients = Ingredient.objects.all()
 
