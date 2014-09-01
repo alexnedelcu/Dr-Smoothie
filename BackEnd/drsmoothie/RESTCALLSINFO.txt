@@ -100,7 +100,7 @@ returns recipelist
 
 
 #NOT DONE
-/TopRecipes
+/TopRecipes?start=[int]&end=[int]
 TODO
 
 /FavoriteRecipes?userkey=[userkey]

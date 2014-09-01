@@ -26,12 +26,12 @@
           </div>
           <div class="tab-pane" id="top-recipes">
             <table class="table smoothieList" ng-controller="TopSmoothieListCtrl">
-                <thead class="dark-background">
-                    <tr><th>Smoothie</th><th>Recommendations</th><th></th></tr>
-                </thead>
-                <tbody class="dark-background">
-                    <tr ng-repeat="smoothie in topSmoothies" ng-click="showSmoothieDetails(0)"><td>{{smoothie.name}}</td><td>{{smoothie.recommendations}}</td><td><span class="glyphicon glyphicon-chevron-right"></span></td></tr>
-                </tbody>
+              <thead class="dark-background">
+                  <tr><th>Smoothie</th><th>Recommendations</th><th></th></tr>
+              </thead>
+              <tbody class="dark-background">
+                  <tr ng-repeat="smoothie in topSmoothies" ng-click="showSmoothieDetails(0)"><td>{{smoothie.name}}</td><td>{{smoothie.recommendations}}</td><td><span class="glyphicon glyphicon-chevron-right"></span></td></tr>
+              </tbody>
             </table>
           </div>
           <div class="tab-pane" id="recommended-recipes"> 

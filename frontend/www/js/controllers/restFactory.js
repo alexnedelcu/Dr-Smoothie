@@ -18,7 +18,7 @@ angular.module('comdrsmoothieappApp')
   };
 
   restFactory.getTopRecipes = function() {
-  	return $http.get(urlBase + '/top/0/10');
+  	return $http.get(urlBase + '/TopRecipes?start=0&end=10');
   };
 
   restFactory.getMyRecipes = function(userId) {
@@ -56,6 +56,9 @@ angular.module('comdrsmoothieappApp')
   };
 
   restFactory.getIngredients = function(type, successCallback){
+    if(type == undefined) {
+      type = "none"
+    }
     return $http.get(urlBase + '/Ingredients?type='+type).success(successCallback);
   };
 

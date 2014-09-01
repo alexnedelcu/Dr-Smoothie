@@ -14,7 +14,13 @@ angular.module('comdrsmoothieappApp')
       'AngularJS',
       'Karma'
     ];
-    $scope.topSmoothies = [
+
+//    $scope.topSmoothies = 
+    restFactory.getTopRecipes().success(function(data) {
+      $scope.topSmoothies = data;
+      console.log(data);
+    });
+    /*$scope.topSmoothies = [
         {name:'Hearty Fruit and Oat Smoothie', recommendations: 30},
         {name:'Mango and Yogurt Smoothie', recommendations: 20},
         {name:'Green Ginger-Peach Smoothie', recommendations: 30},
@@ -32,7 +38,7 @@ angular.module('comdrsmoothieappApp')
         {name:'Fruit Smoothie', recommendations: 30},
         {name:'Yogurt-Pistachio Smoothie', recommendations: 30},
         {name:'Winter Smoothie', recommendations: 30}
-    ];
+    ];*/
     $scope.showSmoothieDetails = function(id) {
       window.location = '#/smoothieDetail';
     };
