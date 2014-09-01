@@ -1,4 +1,6 @@
-<div class="container-fluid screen" id="smoothieRecipeScreen">
+
+
+<div class="container-fluid screen" id="smoothieRecipeScreen" ng-controller="SmoothieDetailCtrl">
     <div class="background background-dark">
 
         <div ng-controller="HeaderCtrl">
@@ -15,8 +17,8 @@
               <p>1 mango</p>
               <p>1 medium apple</p>
               <p>1/4 cups milk</p>
-              <p>1 tbsp peanut butter</p><br /><br />
-              <button class="btn btn-primary">Facebook Share</button>
+              <p>1 tbsp peanut butter</p><br /><br /><div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"></div>
+              <button class="btn btn-primary" ng-click="share()">Facebook Share</button>
           </div>
           <div class="tab-pane" id="nutrition" align="center">
               <h4>Protein: 23g</h4><br />
@@ -38,11 +40,10 @@
 
 <script>
   $(function () {
-    
     $('#recipe-nav-tab a').click(function(e) {
         $(this).tab('show');
         e.preventDefault();
     });
-
   });
+
 </script>

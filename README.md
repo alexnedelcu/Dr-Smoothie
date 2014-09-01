@@ -25,6 +25,10 @@ The following stept are needed for whoever is interested in running the applicat
 	
 	$ ionic run android    # (will run in a emulator or on the phone, if it is connected to the computer)
 
+For Testing: 
+   Used Protractor that uses webdriver which uses selenium.
+   Tutorial for protractor: https://github.com/angular/protractor/blob/master/docs/tutorial.md 
+
 This is it! Now please ignore the rest of this document. :)
 
 
