@@ -233,6 +233,12 @@ def SearchRecipe(request):
 # /AddRecipe
 # request.body = (SampleRequestData.json)
 def AddRecipe(request):
+    if request.method == "OPTIONS":
+        methods = ['get', 'post', 'put', 'delete', 'options']
+        optionsResponse = HttpResponse()
+        optionsResponse['allow'] = ','.join(methods)
+        return optionsResponse
+
     data = json.loads(request.body)
 
     # retrieve needed data from data
