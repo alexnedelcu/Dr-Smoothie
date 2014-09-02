@@ -85,13 +85,14 @@ div.background-light {
 }
 
 .appNameFrontScreen {
-    margin-top: 1in;
-    font-size: 0.7in;
+    margin-top: 0.7in;
+    font-size: 0.5in;
     font-family: 'Indie Flower', cursive;
     text-align: center;
-    margin-bottom: 2in;
+    margin-bottom: 1.5in;
     color: white;
-    font-weight: bold
+    font-weight: bold;
+    text-shadow: 0 0 0.3in #000, 0 0 0.3in #000, 0 0 0.3in #000;
 }
 .handwriting {
     font-family: 'Indie Flower', cursive;
@@ -143,7 +144,6 @@ h1 {
 div.btnHomePage {
     margin-top : 0.2in;
     padding: 0.1in;
-    /*display: none;*/
 }
 
 tbody.dark-background {
@@ -181,4 +181,24 @@ ul.nav-drsmoothie-bg {
     background-repeat: repeat-x;
     background-size: contain
 
+}
+
+div.userInfo {
+
+}
+
+div #username {
+    font-size: 0.3in;
+    font-family: 'Indie Flower', cursive;
+    text-shadow: 0 0 0.1in #000, 0 0 0.1in #000, 0 0 0.1in #000;
+    z-index:100;
+    position: relative;
+}
+img.fbProfilePicture {
+    border: 5px solid black;
+    -webkit-box-shadow: 0px 0px 0.8in 0.2in rgba(0,0,0,0.92);
+    -moz-box-shadow: 0px 0px 0.8in 0.2in rgba(0,0,0,0.92);
+    box-shadow: 0px 0px 0.8in 0.2in rgba(0,0,0,0.92);
+    z-index: 9;
+    position: relative;
 }
