@@ -13,24 +13,24 @@ angular.module('comdrsmoothieappApp')
   var urlBase = 'http://localhost:8000';
   var restFactory = {};
 
-  restFactory.getRecipeDetails = function(id){
+  restFactory.getRecipeDetails = function(id) {
   	return $http.get(urlBase + '/recipe' + id);
   };
 
-  restFactory.getTopRecipes = function(){
+  restFactory.getTopRecipes = function() {
   	return $http.get(urlBase + '/top/0/10');
   };
 
-  restFactory.getMyRecipes = function(userId){
+  restFactory.getMyRecipes = function(userId) {
   	return $http.get(urlBase + '/myrecipes/' + userId);
   };
 
-  restFactory.getMyFavorites = function(userId){
+  restFactory.getMyFavorites = function(userId) {
   	return $http.get(urlBase + '/myfavorites/' + userId);
   };
 
-  restFactory.addRecipe = function(recipe){
-  	return $http.post(urlBase + '/recipe', recipe);
+  restFactory.addRecipe = function(recipe) {
+  	return $http.post(urlBase + '/AddRecipe', recipe);
   };
 
   restFactory.addUser = function(facebookID){
