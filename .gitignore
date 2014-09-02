@@ -3,3 +3,4 @@
 *.pyc
 frontend/com/example/drsmoothie/app/.idea/
 .idea/
+.gaedata/
