@@ -18,7 +18,6 @@ angular.module('comdrsmoothieappApp')
 //    $scope.topSmoothies = 
     restFactory.getTopRecipes().success(function(data) {
       $scope.topSmoothies = data;
-      console.log(data);
     });
     /*$scope.topSmoothies = [
         {name:'Hearty Fruit and Oat Smoothie', recommendations: 30},

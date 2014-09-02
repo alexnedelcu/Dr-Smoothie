@@ -14,7 +14,7 @@ angular.module('comdrsmoothieappApp')
   var restFactory = {};
 
   restFactory.getRecipeDetails = function(id) {
-  	return $http.get(urlBase + '/recipe' + id);
+  	return $http.get(urlBase + '/GetRecipe?id=' + id);
   };
 
   restFactory.getTopRecipes = function() {
@@ -22,11 +22,11 @@ angular.module('comdrsmoothieappApp')
   };
 
   restFactory.getMyRecipes = function(userId) {
-  	return $http.get(urlBase + '/myrecipes/' + userId);
+  	return $http.get(urlBase + '/RecipesByUser?userkey=' + userId);
   };
 
   restFactory.getMyFavorites = function(userId) {
-  	return $http.get(urlBase + '/myfavorites/' + userId);
+  	return $http.get(urlBase + '/FavoriteRecipes?name=' + userId);
   };
 
   restFactory.addRecipe = function(recipe) {
@@ -44,20 +44,20 @@ angular.module('comdrsmoothieappApp')
   };
 
   restFactory.searchByName = function(name){
-  	return $http.get(urlBase + '/search/' + name);
+  	return $http.get(urlBase + '/Search/Recipe?name=' + name);
   };
 
   restFactory.searchByIngredient = function(ing){
-  	return $http.get(urlBase + '/search/' + ing);
+  	return $http.get(urlBase + '/Search/Ingredient?name=' + ing);
   };
 
   restFactory.searhByNutrient = function(nut){
-  	return $http.get(urlBase + '/search/' + nut);
+  	return $http.get(urlBase + '/Search/Nutrient?name=' + nut);
   };
 
   restFactory.getIngredients = function(type, successCallback){
     if(type == undefined) {
-      type = "none"
+      type = "NONE"
     }
     return $http.get(urlBase + '/Ingredients?type='+type).success(successCallback);
   };
