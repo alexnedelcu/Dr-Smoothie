@@ -9,7 +9,6 @@ from utils import *
 import json
 import sys
 import os
-# Create your views here.
 
 # GET Requests
 def GetIngredient(request):
@@ -20,19 +19,19 @@ def GetIngredient(request):
 
 # /Ingredients
 def Ingredients(request):
-    if "type" in request.GET:
-        arg = str(request.GET["type"])
-        try:
-            ingredientType = IngredientType.objects.get(type=arg)
-            ingredients = Ingredient.objects.filter(type__exact = ingredientType)
-        except:
-            ingredients = []
-    else:
-        ingredients = Ingredient.objects.all()
+    # if "type" in request.GET:
+    #     arg = str(request.GET["type"])
+    #     try:
+    #         ingredientType = IngredientType.objects.get(type=arg)
+    #         ingredients = Ingredient.objects.filter(type__exact = ingredientType)
+    #     except:
+    #         ingredients = []
+    # else:
+    #     ingredients = Ingredient.objects.all()
 
-    jsonlist = ConvertIngredientsToJson(ingredients)
+    # jsonlist = ConvertIngredientsToJson(ingredients)
     
-    return HttpResponse(jsonlist)
+    return HttpResponse('Welcome')
 
 # /Nutrients
 def Nutrients(request):
@@ -272,8 +271,11 @@ def AddUser(request):
     data = json.loads(request.body)
     try:
         newuserkey = str(data["userkey"])
-        userexists = User.objects.get_or_create(key=newuserkey)
-        responseMessage = '{userKey: "' + userexists.key + '"}'
+        user, exists = User.objects.get_or_create(key=newuserkey)
+        if not exists:
+            responseMessage = user.key + " already exists."
+        else:    
+            responseMessage = '{userKey: "' + user.key + '"}'
     except:
         responseMessage = '{error: "User was not created."}'
 
