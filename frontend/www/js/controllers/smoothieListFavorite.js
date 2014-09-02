@@ -8,14 +8,18 @@
  * Controller of the comdrsmoothieappApp
  */
 angular.module('comdrsmoothieappApp')
-  .controller('MySmoothieListCtrl', ['$scope', 'restFactory', function ($scope, restFactory) {
+  .controller('FavSmoothieListCtrl', ['$scope', 'restFactory', function ($scope, restFactory) {
+    $scope.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
 
-    restFactory.getMyRecipes(10).success(function(data) {
-      $scope.mySmoothies = data;
+    restFactory.getMyFavorites(0).success(function(data) {
+      $scope.favSmoothies = data;
     });
 
     $scope.showSmoothieDetails = function(id) {
       window.location = '#/smoothieDetail';
     };
-
   }]);
