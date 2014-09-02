@@ -1,21 +1,24 @@
 <div class="container-fluid screen" id="smoothieRecipeScreen">
     <div class="background background-dark">
-      <div ng-controller="HeaderCtrl">
+        <div ng-controller="HeaderCtrl">
              <div ng-include="header.url"></div>
-         </div>
+        </div>
         <div class="text-center" ng-class="newSmoothieIngredientListClass">
-            <h4>My New Smoothie</h4>
-            <table class="table smoothieList">
-                <tr ng-repeat = "ingredient in selectedIngredients">
-                    <td>{{ingredient.name}}</td>
-                    <td class="text-right">
-                        <span class = "glyphicon glyphicon-minus" ng-click="removeIngredientFromRecipe({{ingredient}})"></span>
-                    </td>
-                </tr>
-            </table>
-            <div class="btnHomePage" id="btnHomeCreateSmootie">
-                <a ng-href="" type="button" class="btn btn-primary btn-lg btn-block">Create Smoothie</a>
-            </div>
+            <form novalidate>
+                <h4>My New Smoothie</h4>
+                <input type="text" ng-model="newSmoothieName" />
+                <table class="table smoothieList">
+                    <tr ng-repeat = "ingredient in selectedIngredients">
+                        <td>{{ingredient.name}}</td>
+                        <td class="text-right">
+                            <span class = "glyphicon glyphicon-minus" ng-click="removeIngredientFromRecipe({{ingredient}})"></span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="btnHomePage" id="btnHomeCreateSmootie">
+                    <a ng-href="" type="button" class="btn btn-primary btn-lg btn-block" ng-click="createSmoothie()">Create Smoothie</a>
+                </div>
+            </form>
         </div>
         <div class="text-center">
             <h4>Select Ingredients</h4>
