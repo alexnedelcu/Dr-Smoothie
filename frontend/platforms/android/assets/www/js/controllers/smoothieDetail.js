@@ -60,13 +60,8 @@ console.log(openFB);
                     if (loc.indexOf("post_id") >= 0) alert("Smoothie shared successfully! :)");
                 }
             });
-
-
           }
       );
-
-
   }
-
 
   }]);

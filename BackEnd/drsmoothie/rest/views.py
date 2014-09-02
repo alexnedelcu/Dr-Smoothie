@@ -19,19 +19,19 @@ def GetIngredient(request):
 
 # /Ingredients
 def Ingredients(request):
-    # if "type" in request.GET:
-    #     arg = str(request.GET["type"])
-    #     try:
-    #         ingredientType = IngredientType.objects.get(type=arg)
-    #         ingredients = Ingredient.objects.filter(type__exact = ingredientType)
-    #     except:
-    #         ingredients = []
-    # else:
-    #     ingredients = Ingredient.objects.all()
+    if "type" in request.GET:
+        arg = str(request.GET["type"])
+        try:
+            ingredientType = IngredientType.objects.get(type=arg)
+            ingredients = Ingredient.objects.filter(type__exact = ingredientType)
+        except:
+            ingredients = []
+    else:
+        ingredients = Ingredient.objects.all()
 
-    # jsonlist = ConvertIngredientsToJson(ingredients)
+    jsonlist = ConvertIngredientsToJson(ingredients)
     
-    return HttpResponse('Welcome')
+    return HttpResponse(jsonlist)
 
 # /Nutrients
 def Nutrients(request):
@@ -106,7 +106,7 @@ def RecipesByUser(request):
         recipes = Recipe.objects.filter(user__exact = userfound)
         
         reclist = CreateRecommendationCountList(recipes)
-        jsonlist = ConvertModelToJsonList(recipes, reclist)
+        jsonlist = ConvertRecipeToJsonList(recipes, reclist)
         
         return HttpResponse(jsonlist)
 
@@ -232,34 +232,38 @@ def SearchRecipe(request):
 # /AddRecipe
 # request.body = (SampleRequestData.json)
 def AddRecipe(request):
-    if request.method == "OPTIONS":
-        methods = ['get', 'post', 'put', 'delete', 'options']
-        optionsResponse = HttpResponse()
-        optionsResponse['allow'] = ','.join(methods)
-        return optionsResponse
+    recipename = str(request.GET['name'])
+    ingrname = str(request.GET['ingr'])
+    rec = 0
+    Recipe.create(recipename, "Brian")
+    # if request.method == "OPTIONS":
+    #     methods = ['get', 'post', 'put', 'delete', 'options']
+    #     optionsResponse = HttpResponse()
+    #     optionsResponse['allow'] = ','.join(methods)
+    #     return optionsResponse
 
-    data = json.loads(request.body)
+    # data = json.loads(request.body)
 
-    # retrieve needed data from data
-    recipename = str(data["name"])
-    ingredients = data["ingredients"]
-    userkey = str(data["userkey"])
+    # # retrieve needed data from data
+    # recipename = str(data["name"])
+    # ingredients = data["ingredients"]
+    # userkey = str(data["userkey"])
 
-    # userfound should have a try statement
-    try:
-        userfound = User.objects.get(key=userkey)
-    except:
-        userfound = None
-    if userfound is not None:
-        try:
-            addedrecipe = Recipe.create(recipename, userfound)
-        except:
-            return HttpResponse('already exists')
-        for ingr in ingredients:
-            quantity = float(ingr["quantity"])
-            ingrid = str(ingr["ingr_id"])
-            ingrRetrieved = Ingredient.objects.get(pk=ingrid)
-            rim = RecipeIngrMap.create(addedrecipe,ingrRetrieved,quantity)
+    # # userfound should have a try statement
+    # try:
+    #     userfound = User.objects.get(key=userkey)
+    # except:
+    #     userfound = None
+    # if userfound is not None:
+    #     try:
+    #         addedrecipe = Recipe.create(recipename, userfound)
+    #     except:
+    #         return HttpResponse('already exists')
+    #     for ingr in ingredients:
+    #         quantity = float(ingr["quantity"])
+    #         ingrid = str(ingr["ingr_id"])
+    #         ingrRetrieved = Ingredient.objects.get(pk=ingrid)
+    #         rim = RecipeIngrMap.create(addedrecipe,ingrRetrieved,quantity)
 
     return HttpResponse('')
 

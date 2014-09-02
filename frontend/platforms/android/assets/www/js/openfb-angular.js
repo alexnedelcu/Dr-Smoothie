@@ -65,12 +65,17 @@ angular.module('comdrsmoothieappApp')
                 var token = tokenStore['fbtoken'],
                     loginStatus = {};
                     console.log(tokenStore);
+
                 if (token !== undefined) {
-                    loginStatus.status = 'connected';
-                    loginStatus.authResponse = {
-                        token: token
-                    };
-                    accessToken = token
+                    if(tokenStore["expires_at"] <= (new Date()).getTime() / 1000) {
+                        loginStatus.status = 'expired';
+                    } else {
+                        loginStatus.status = 'connected';
+                        loginStatus.authResponse = {
+                            token: token
+                        };
+                        accessToken = token
+                    }
                 } else {
                     loginStatus.status = 'unknown';
                 }
@@ -128,7 +133,6 @@ angular.module('comdrsmoothieappApp')
                     if (url.indexOf("access_token=") > 0 || url.indexOf("error=") > 0) {
                         loginWindow.close();
                         oauthCallback(url, successCallback, failureCallback);
-
                     }
                 });
 
@@ -160,6 +164,10 @@ angular.module('comdrsmoothieappApp')
                 queryString = url.substr(url.indexOf('#') + 1);
                 obj = parseQueryString(queryString);
                 tokenStore['fbtoken'] = obj['access_token'];
+                console.log(((new Date()).getTime() / 1000));
+                console.log(obj['expires_in']);
+                tokenStore['expires_at'] = Number(obj['expires_in']) + ((new Date()).getTime() / 1000);
+                console.log(tokenStore['expires_at']);
                 deferredLogin.resolve();
                 successCallback();
                 accessToken = obj['access_token']
