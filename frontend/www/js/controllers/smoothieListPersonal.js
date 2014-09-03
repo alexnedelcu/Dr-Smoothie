@@ -10,7 +10,7 @@
 angular.module('comdrsmoothieappApp')
   .controller('MySmoothieListCtrl', ['$scope', 'restFactory', function ($scope, restFactory) {
 
-    restFactory.getMyRecipes(10).success(function(data) {
+    restFactory.getMyRecipes('AlexN').success(function(data) {
       $scope.mySmoothies = data;
     });
 
